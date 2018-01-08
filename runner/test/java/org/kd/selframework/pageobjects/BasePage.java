@@ -1,4 +1,4 @@
-package pageobjects;
+package org.kd.selframework.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,4 +24,6 @@ abstract class BasePage implements Page {
     public void navigateTo() {
         driver.get(url);
     }
+
+
 }
