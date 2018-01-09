@@ -8,7 +8,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class PO_Index extends BasePage implements Page {
 
     private static Logger logger = LoggerFactory.getLogger(PO_Index.class);
