@@ -1,4 +1,5 @@
 Feature: F1
 
    Scenario: S1
-   Given
+   Given I navigate to index site
+

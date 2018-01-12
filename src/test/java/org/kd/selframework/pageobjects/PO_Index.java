@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class PO_Index extends BasePage implements Page {
 
-    private static Logger logger = LoggerFactory.getLogger(PO_Index.class);
+    private final static Logger logger = LoggerFactory.getLogger(PO_Index.class);
 
     @Override
     public WebElement quietlyFindElement(By locator) {
@@ -36,6 +36,7 @@ public class PO_Index extends BasePage implements Page {
 
     public void navigateTo() {
         super.navigateTo();
-
+        logger.info("Navigating to {}", this.url);
+        System.out.println("Navigating to {}"+ this.url);
     }
 }
