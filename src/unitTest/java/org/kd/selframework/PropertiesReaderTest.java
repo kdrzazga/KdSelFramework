@@ -8,10 +8,10 @@ public class PropertiesReaderTest {
 
     @Test
     public void testResourcesReading() {
-        Integer I = PropertiesReader.readFromConfig("someKey");
-        String S = PropertiesReader.readFromConfig("driver.chrome.path");
-        Double D = PropertiesReader.readFromConfig("lista");
-        Assert.assertEquals(2, I.intValue());
-        Assert.assertEquals("C:\\Users\\KDRZAZGA\\webdriver\\chromedriver.exe", S);
+
+        Assert.assertEquals("C:\\Users\\KDRZAZGA\\webdriver\\chromedriver.exe"
+                , PropertiesReader.readFromConfig("driver.chrome.path"));
+        Assert.assertEquals("C:\\Users\\KDRZAZGA\\webdriver\\geckodriver.exe"
+                , PropertiesReader.readFromConfig("driver.firefox.path"));
     }
 }

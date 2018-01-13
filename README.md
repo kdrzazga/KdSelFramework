@@ -1,2 +1,1 @@
-SETUP:
-1. Open file 
+Modify src/test/resources/application.properties with path to your web drivers
