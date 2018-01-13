@@ -13,7 +13,7 @@ public class WebDriverFactory {
     }
 
     static {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\KDRZAZGA\\webdriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", PropertiesReader.readFromConfig("driver.chrome.path"));
     }
 
     public static WebDriver createChromeDriver() {
