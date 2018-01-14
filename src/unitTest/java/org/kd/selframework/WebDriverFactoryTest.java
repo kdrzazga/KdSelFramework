@@ -8,10 +8,10 @@ import org.openqa.selenium.WebDriver;
 public class WebDriverFactoryTest {
 
     @Test
-    public void testFirefoxDrive(){
-        WebDriver ffDriver = WebDriverFactory.createFirefoxDriver();
-        ffDriver.get("http://www.google.com");
-        Assert.assertTrue(ffDriver.getTitle().contains("Google"));
-        ffDriver.close();
+    public void testChromeDrive(){
+        WebDriver chromeDriver = WebDriverFactory.createChromeDriver();
+        chromeDriver.get("http://www.google.com");
+        Assert.assertTrue(chromeDriver.getTitle().contains("Google"));
+        chromeDriver.close();
     }
 }
