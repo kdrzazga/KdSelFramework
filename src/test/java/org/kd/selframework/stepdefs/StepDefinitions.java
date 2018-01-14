@@ -1,13 +1,14 @@
 package org.kd.selframework.stepdefs;
 
 import cucumber.api.java.en.Given;
+import org.kd.selframework.general.WebDriverFactory;
 import org.kd.selframework.pageobjects.PO_Index;
 
 public class StepDefinitions {
 
-    private final PO_Index indexPage = new PO_Index("http://www.google.com");
+    private final PO_Index indexPage = new PO_Index("http://www.google.com", WebDriverFactory.createChromeDriver());
 
-    public StepDefinitions(){
+    public StepDefinitions() {
     }
 
     @Given("^I navigate to index site$")
