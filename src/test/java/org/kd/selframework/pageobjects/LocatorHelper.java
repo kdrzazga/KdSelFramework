@@ -13,28 +13,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
 
-public class BasePage implements Page{
-    protected WebDriver driver;
-    protected String url;
-    protected int timeout;
-    protected int longTimeout;
+public final class LocatorHelper {
+
+    private static final int timeout;
+    private static int longTimeout;
 
     private final static Logger logger = LoggerFactory.getLogger(PO_Index.class);
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
+    static {
         timeout = PropertiesReader.readFromConfig("timeout.default");
     }
 
-    public WebElement quietlyQuickFindElement(By locator) {
-        return quietlyFindElement(locator, timeout);
+    private LocatorHelper() {
     }
 
-    public WebElement quietlyLongFindElement(By locator) {
-        return quietlyFindElement(locator, longTimeout);
+    public static WebElement quietlyQuickFindElement(WebDriver driver, By locator) {
+        return quietlyFindElement(driver, locator, timeout);
     }
 
-    public WebElement quietlyFindElement(By locator, int timeout) {
+    public static WebElement quietlyLongFindElement(WebDriver driver, By locator) {
+        return quietlyFindElement(driver, locator, longTimeout);
+    }
+
+    public static WebElement quietlyFindElement(WebDriver driver, By locator, int timeout) {
         ExpectedCondition<WebElement> elementLocated;
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         WebElement element;
@@ -48,15 +49,15 @@ public class BasePage implements Page{
         }
     }
 
-    public List<WebElement> quietlyFindElements(By locator, String locatorArg) {
+    public static List<WebElement> quietlyFindElements(WebDriver driver, By locator, String locatorArg) {
         return null;
     }
 
-    public List<WebElement> quietlyFindElements(By locator, String locatorArg, int timeout) {
+    public static List<WebElement> quietlyFindElements(WebDriver driver, By locator, String locatorArg, int timeout) {
         return null;
     }
 
-    public WebElement findClickableElement(By locator, int timeout){
+    public static WebElement findClickableElement(WebDriver driver, By locator, int timeout){
         ExpectedCondition<WebElement> elementLocated;
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         WebElement element;
@@ -70,34 +71,19 @@ public class BasePage implements Page{
         }
     }
 
-    public void focusOnElement(WebElement element){
+    public static void focusOnElement(WebDriver driver, WebElement element){
         Actions actionChains = new Actions(driver);
         actionChains.moveToElement(element).click().perform();
     }
 
-    public void sendKeys(WebElement element, String text){
-        focusOnElement(element);
+    public static void sendKeys(WebDriver driver, WebElement element, String text){
+        focusOnElement(driver, element);
         element.sendKeys(text);
     }
 
-    public WebElement getElementFromDiv(String containerId, String elementTag, int timeout){
+    public static WebElement getElementFromDiv(WebDriver driver, String containerId, String elementTag, int timeout){
         String xpath = String.format("//div[contains(@class, '%s')]//%s", containerId, elementTag);
-        return quietlyFindElement(By.xpath(xpath), timeout);
-    }
-
-    public void navigateTo() {
-        driver.get(url);
-        logger.info("Navigating to {}", this.url);
-    }
-
-    @Override
-    public WebDriver getDriver() {
-        return this.driver;
-    }
-
-    @Override
-    public String getTitle(){
-        return this.driver.getTitle();
+        return quietlyFindElement(driver, By.xpath(xpath), timeout);
     }
 
 }

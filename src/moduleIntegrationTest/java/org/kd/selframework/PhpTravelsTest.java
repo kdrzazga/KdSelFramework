@@ -3,15 +3,15 @@ package org.kd.selframework;
 import org.junit.Before;
 import org.junit.Test;
 import org.kd.selframework.general.WebDriverFactory;
+import org.kd.selframework.pageobjects.Page;
 import org.openqa.selenium.WebDriver;
 
 public class PhpTravelsTest {
 
     private final PO_PhpTravels po_phpTravels;
-    private final WebDriver driver;
 
     public PhpTravelsTest(){
-        driver = WebDriverFactory.createChromeDriver();
+        WebDriver driver = WebDriverFactory.createChromeDriver();
         po_phpTravels = new PO_PhpTravels(driver);
     }
 
@@ -22,6 +22,8 @@ public class PhpTravelsTest {
 
     @Test
     public void testOpenAndCloseBanner(){
+        po_phpTravels.navigateTo();
 
+        po_phpTravels.getDriver().close();
     }
 }

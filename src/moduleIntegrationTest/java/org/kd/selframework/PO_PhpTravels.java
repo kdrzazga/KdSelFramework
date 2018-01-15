@@ -1,14 +1,16 @@
 package org.kd.selframework;
 
-import org.kd.selframework.pageobjects.BasePage;
+import org.kd.selframework.pageobjects.Page;
 import org.openqa.selenium.WebDriver;
 
-public class PO_PhpTravels extends BasePage{
+public class PO_PhpTravels extends Page {
 
-    WO_LiveChatCompact wo_liveChatCompact;
-    WO_LiveChatFull wo_liveChatFull;
+    private final WO_LiveChatCompact wo_liveChatCompact;
+    private final WO_LiveChatFull wo_liveChatFull;
 
-    public PO_PhpTravels(WebDriver driver){
-        super(driver);
+    public PO_PhpTravels(WebDriver driver) {
+        super(driver, "https://phptravels.com/demo/");
+        this.wo_liveChatCompact = new WO_LiveChatCompact();
+        this.wo_liveChatFull = new WO_LiveChatFull();
     }
 }
