@@ -18,8 +18,9 @@ public class WebDriverFactoryTest {
 
     @Test
     public void testHeadlessDriver(){
-        Page page = new DuckDuckGoPage();
+        Page page = new PO_DuckDuckGo();
         page.navigateTo();
         Assert.assertEquals("DuckDuckGo", page.getTitle());
+        page.getDriver().close();
     }
 }
