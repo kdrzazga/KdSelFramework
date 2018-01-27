@@ -3,27 +3,24 @@ package org.kd.selframework;
 import org.junit.Before;
 import org.junit.Test;
 import org.kd.selframework.general.WebDriverFactory;
-import org.kd.selframework.pageobjects.Page;
 import org.openqa.selenium.WebDriver;
 
 public class PhpTravelsTest {
 
     private final PO_PhpTravels po_phpTravels;
 
-    public PhpTravelsTest(){
+    public PhpTravelsTest() {
         WebDriver driver = WebDriverFactory.createChromeDriver();
         po_phpTravels = new PO_PhpTravels(driver);
     }
 
     @Before
-    public void init(){
-
+    public void init() {
     }
 
     @Test
-    public void testOpenAndCloseBanner(){
+    public void testOpenAndCloseBanner() {
         po_phpTravels.navigateTo();
-
         po_phpTravels.getDriver().close();
     }
 }

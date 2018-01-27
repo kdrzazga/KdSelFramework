@@ -2,7 +2,7 @@ package org.kd.selframework.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
-public abstract class Page {
+public abstract class Page implements WebDriveable {
 
     protected WebDriver driver;
     protected final String url;
@@ -16,10 +16,12 @@ public abstract class Page {
         this.driver.get(this.url);
     }
 
+    @Override
     public WebDriver getDriver() {
         return this.driver;
     }
 
+    @Override
     public void setDriver(WebDriver driver) {
         this.driver = driver;
     }

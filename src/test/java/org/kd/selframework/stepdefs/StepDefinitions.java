@@ -6,7 +6,7 @@ import org.kd.selframework.pageobjects.PO_Index;
 
 public class StepDefinitions {
 
-    private final PO_Index indexPage = new PO_Index("http://www.google.com", WebDriverFactory.createChromeDriver());
+    private final PO_Index indexPage = new PO_Index(WebDriverFactory.createChromeDriver(), "http://www.google.com");
 
     public StepDefinitions() {
     }
