@@ -26,7 +26,9 @@ public abstract class Page implements WebDriveable {
         this.driver = driver;
     }
 
-    public String getTitle() {
-        return this.driver.getTitle();
+    public String getTitle(){
+        return driver.getTitle();
     }
+
+
 }

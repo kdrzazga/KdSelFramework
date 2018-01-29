@@ -10,4 +10,9 @@ class PO_DuckDuckGo extends Page {
     PO_DuckDuckGo(WebDriver driver) {
         super(driver, "https://duckduckgo.com/");
     }
+
+    @Override
+    public void findElements() {
+
+    }
 }

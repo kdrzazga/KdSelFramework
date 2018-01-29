@@ -18,4 +18,9 @@ public class Widget implements WebDriveable {
     public void setDriver(WebDriver driver) {
         this.driver = driver;
     }
+
+    @Override
+    public void findElements() {
+
+    }
 }

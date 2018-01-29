@@ -1,4 +1,4 @@
-package org.kd.selframework;
+package org.kd.selframework.php_travels_site;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,11 +16,13 @@ public class PhpTravelsTest {
 
     @Before
     public void init() {
+
     }
 
     @Test
     public void testOpenAndCloseBanner() {
         po_phpTravels.navigateTo();
+        po_phpTravels.findElements();
         po_phpTravels.getDriver().close();
     }
 }

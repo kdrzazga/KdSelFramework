@@ -13,4 +13,9 @@ public final class PO_Index extends Page{
 
         System.out.println("Navigating to {}"+ this.url);
     }
+
+    @Override
+    public void findElements() {
+
+    }
 }

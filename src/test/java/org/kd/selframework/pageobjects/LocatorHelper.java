@@ -11,29 +11,48 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 public final class LocatorHelper {
 
-    private static final int timeout;
-    private static int longTimeout;
+    private static final int TIMEOUT;
+    private static final int POLLING_INTERVAL;
 
     private final static Logger logger = LoggerFactory.getLogger(PO_Index.class);
 
     static {
-        timeout = PropertiesReader.readFromConfig("timeout.default");
+        TIMEOUT = PropertiesReader.readFromConfig("timeout.default");
+        if (TIMEOUT / 5 < 1) {
+            POLLING_INTERVAL = 1;
+        } else {
+            POLLING_INTERVAL = TIMEOUT / 5;
+        }
     }
 
     private LocatorHelper() {
     }
 
-    public static WebElement quietlyQuickFindElement(WebDriver driver, By locator) {
-        return quietlyFindElement(driver, locator, timeout);
+    public static WebElement quietlyFindElement(final WebDriver driver, final By locator) {
+        return quietlyFindElement(driver, locator, TIMEOUT);
     }
 
-    public static WebElement quietlyLongFindElement(WebDriver driver, By locator) {
-        return quietlyFindElement(driver, locator, longTimeout);
+    public static boolean isElementPresent(final WebDriver driver, final By locator){
+        try {
+            driver.findElement(locator);
+            return true;
+        }
+        catch (NoSuchElementException e)
+        {
+            return false;
+        }
     }
+
+    public static boolean isElementVisible(final WebDriver driver, final By locator){
+        WebElement element =  driver.findElement(locator);
+        return element.isDisplayed();
+    }
+
 
     public static WebElement quietlyFindElement(WebDriver driver, By locator, int timeout) {
         ExpectedCondition<WebElement> elementLocated;
@@ -57,7 +76,7 @@ public final class LocatorHelper {
         return null;
     }
 
-    public static WebElement findClickableElement(WebDriver driver, By locator, int timeout){
+    public static WebElement findClickableElement(WebDriver driver, By locator, int timeout) {
         ExpectedCondition<WebElement> elementLocated;
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         WebElement element;
@@ -71,17 +90,17 @@ public final class LocatorHelper {
         }
     }
 
-    public static void focusOnElement(WebDriver driver, WebElement element){
+    public static void focusOnElement(WebDriver driver, WebElement element) {
         Actions actionChains = new Actions(driver);
         actionChains.moveToElement(element).click().perform();
     }
 
-    public static void sendKeys(WebDriver driver, WebElement element, String text){
+    public static void sendKeys(WebDriver driver, WebElement element, String text) {
         focusOnElement(driver, element);
         element.sendKeys(text);
     }
 
-    public static WebElement getElementFromDiv(WebDriver driver, String containerId, String elementTag, int timeout){
+    public static WebElement getElementFromDiv(WebDriver driver, String containerId, String elementTag, int timeout) {
         String xpath = String.format("//div[contains(@class, '%s')]//%s", containerId, elementTag);
         return quietlyFindElement(driver, By.xpath(xpath), timeout);
     }
