@@ -18,6 +18,19 @@ public class WebDriverFactory {
         System.setProperty("webdriver.gecko.driver", PropertiesReader.readFromConfig("driver.firefox.path"));
     }
 
+    public static WebDriver createDriverDefinedInConfig() {
+        String browserName = PropertiesReader.readFromConfig("browser");
+
+        switch (browserName) {
+            case "Headless":
+                return createHeadlessDriver();
+            case "Firefox":
+                return createFirefoxDriver();
+            default:
+                return createChromeDriver();
+        }
+    }
+
     public static WebDriver createChromeDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");
