@@ -29,6 +29,12 @@ public class PO_InputForms extends Page {
     }
 
     public String readDisplayedMessage(){
-        return "";
+        return "not implemneted yet";
+    }
+
+    @Override
+    public boolean isLoaded() {
+        waitForPageLoaded();
+        return driver.getCurrentUrl().contains(this.getUrl());
     }
 }

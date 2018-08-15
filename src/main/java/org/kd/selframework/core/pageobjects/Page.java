@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public abstract class Page implements WebDriveable {
 
@@ -30,7 +31,7 @@ public abstract class Page implements WebDriveable {
     public void waitForPageLoaded() {
         long startTime = System.currentTimeMillis();
         final String jsScript = "return document.readyState";
-        ExpectedCondition<Boolean> pageLoadComplete = driver -> ((JavascriptExecutor) driver).executeScript(jsScript)
+        ExpectedCondition<Boolean> pageLoadComplete = driver -> ((JavascriptExecutor) Objects.requireNonNull(driver)).executeScript(jsScript)
                 .equals("complete");
 
         WebDriverWait wait = new WebDriverWait(this.driver, ((Integer)PropertiesReader.readFromConfig("timeout.default")).longValue());
@@ -38,7 +39,7 @@ public abstract class Page implements WebDriveable {
         try {
             wait.until(pageLoadComplete);
         } catch (TimeoutException | NoSuchElementException e) {
-            throw new SiteNotOpened(this.url, Math.round(System.currentTimeMillis() - (startTime / 1000)));
+            throw new SiteNotOpened(this.url, Math.round(System.currentTimeMillis() - startTime / 1000));
         }
     }
 

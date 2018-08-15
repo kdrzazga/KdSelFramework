@@ -38,4 +38,8 @@ public class TestLogger {
         System.out.println(WARN_COLOUR + message);
     }
 
+    public void error(String message){
+        System.out.println(ERROR_COLOUR + message);
+    }
+
 }
