@@ -10,6 +10,12 @@ public final class PO_Index extends Page {
         super(driver, PropertiesReader.readFromConfig("app-under-test.url"));
     }
 
+    @Override
+    public boolean isLoaded() {
+        waitForPageLoaded();
+        return driver.getCurrentUrl().contains(this.getUrl());
+    }
+
     public void navigateTo() {
         super.navigateTo();
 
