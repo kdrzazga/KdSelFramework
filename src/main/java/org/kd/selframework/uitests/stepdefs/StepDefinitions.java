@@ -13,7 +13,12 @@ import org.openqa.selenium.WebDriver;
 import java.util.Hashtable;
 import java.util.Map;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class StepDefinitions {
 
@@ -24,33 +29,54 @@ public class StepDefinitions {
     private final Map<String, Page> pagenamePageobjectMap = new Hashtable<>();
 
     public StepDefinitions() {
-        initPagenamePageobjectMap();
-        initPageObjects();
-    }
-
-    private void initPageObjects() {
-        indexPage.findElements();
-        inputFormsPage.findElements();
-    }
-
-    private void initPagenamePageobjectMap() {
         pagenamePageobjectMap.put("index", indexPage);
         pagenamePageobjectMap.put("Input Forms", inputFormsPage);
     }
+    /*
+        Common
+     */
 
     @Given("^I navigate to (.*) site$")
     public void goToSite(String siteName) {
-        pagenamePageobjectMap.get(siteName).navigateTo();
-        pagenamePageobjectMap.get(siteName).waitForPageLoaded();
+        Page site = pagenamePageobjectMap.get(siteName);
+
+        site.navigateTo();
+        site.load();
+        site.findElements();
     }
 
     /*
-        For Index page
+        For Index page - MainPage
      */
 
     @Then("^I expect the page title is (.*)$")
     public void checkPageTitle(String expectedTitle) {
         assertEquals(expectedTitle, indexPage.getTitle());
+    }
+
+    @Then("^I expect Menu List is available$")
+    public void checkMenuListAvailability() {
+        assertNotNull(indexPage.getTreeMenu());
+    }
+
+    @Then("^I expect Menu List is visible")
+    public void checkMenuListVisibility() {
+        assertTrue(indexPage.getTreeMenuVisibility());
+    }
+
+    @Then("^I expect (.*) items in Menu List$")
+    public void checkItemsCountInMenuList(int itemsCount) {
+        assertThat(itemsCount, is(equalTo(indexPage.readMenuListItems().size())));
+    }
+
+    @Then("^I expect item (.*) to be available$")
+    public void checkIfItemIsContained(String itemName){
+        assertTrue(indexPage.readMenuListItems().contains(itemName));
+    }
+
+    @Then("^I expect item (.*) to be visible$")
+    public void checkIfItemIsVisible(String itemName){
+        assertTrue(indexPage.isItemVisible(itemName));
     }
 
     /*
@@ -69,6 +95,6 @@ public class StepDefinitions {
 
     @After
     public void tearDown() {
-        //indexPage.getDriver().close();
+        indexPage.getDriver().close();
     }
 }

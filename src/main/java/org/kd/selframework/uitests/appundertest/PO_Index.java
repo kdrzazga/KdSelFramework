@@ -7,11 +7,20 @@ import org.openqa.selenium.WebDriver;
 import org.kd.selframework.core.pageobjects.Page;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 public final class PO_Index extends Page {
 
-    private final By inputFormsLinkNodeSelector = By.className("tree-indicator glyphicon glyphicon-chevron-right");
+    private final By inputFormsLinkNodeSelector = By.cssSelector("tree-indicator glyphicon glyphicon-chevron-right");
+    private final By treeMenuSelector = By.id("treemenu");
+    private final By examplesListSelector = By.tagName("li");
 
     private static WebElement inputFormsLinkNode;
+    private static WebElement treeMenu;
+    private static List<WebElement> examplesList;
 
     public PO_Index(WebDriver driver) {
         super(driver, PropertiesReader.readFromConfig("app-under-test.url"));
@@ -26,11 +35,50 @@ public final class PO_Index extends Page {
     public void navigateTo() {
         super.navigateTo();
 
-        System.out.println("Navigating to {}"+ this.url);
+        logger.log("Navigating to " + this.url);
     }
 
     @Override
     public void findElements() {
-        inputFormsLinkNode = LocatorHelper.findClickableElement(this.driver, inputFormsLinkNodeSelector);
+        treeMenu = LocatorHelper.quietlyFindElement(this.driver, treeMenuSelector);
+
+        if (treeMenu != null)
+            examplesList = LocatorHelper.quietlyFindElementsWithin(this.driver, treeMenu, examplesListSelector);
+    }
+
+    public List<String> readMenuListItems() {
+        return examplesList
+                .stream()
+                .map(WebElement::getText)
+                .filter(item -> !item.isEmpty())
+                .filter(item -> !item.contains("\n"))
+                .collect(Collectors.toCollection(() -> new ArrayList<>(examplesList.size())));
+    }
+
+    public boolean isItemVisible(String item) {
+        return Optional.ofNullable(getMenuItem(item))
+                .map(WebElement::isDisplayed)
+                .orElse(false);
+    }
+
+    private WebElement getMenuItem(String item) {
+        if (!readMenuListItems().contains(item))
+            return null;
+
+        for (WebElement menuItem : examplesList) {
+            if (menuItem.getText().equals(item))
+                return menuItem;
+
+        }
+
+        return null;
+    }
+
+    public boolean getTreeMenuVisibility() {
+        return LocatorHelper.isElementVisible(this.driver, treeMenuSelector);
+    }
+
+    public WebElement getTreeMenu() {
+        return treeMenu;
     }
 }

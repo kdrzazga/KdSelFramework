@@ -19,7 +19,7 @@ public class PO_InputForms extends Page {
 
     @Override
     public void findElements() {
-        this.userMessageTextBox = LocatorHelper.quietlyFindElement(driver, userMessageTextBoxSelector);
+        userMessageTextBox = LocatorHelper.quietlyFindElement(driver, userMessageTextBoxSelector);
     }
 
     public void enterMessage(String message){
