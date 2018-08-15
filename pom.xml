@@ -9,8 +9,8 @@
     <version>0.9-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>1.0</maven.compiler.source>
-        <maven.compiler.target>1.0</maven.compiler.target>
+        <maven.compiler.source>1.10</maven.compiler.source>
+        <maven.compiler.target>1.10</maven.compiler.target>
         <junit.version>4.12</junit.version>
         <testng.version>6.8.7</testng.version>
         <selenium.version>2.39.0</selenium.version>
