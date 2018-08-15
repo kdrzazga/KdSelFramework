@@ -71,7 +71,7 @@ public final class LocatorHelper {
             elementLocated = ExpectedConditions.elementToBeClickable(locator);
             element = wait.until(elementLocated);
             return element;
-        } catch (NoSuchElementException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             System.err.println("Element " + locator.toString() + " not found on page " + driver.getCurrentUrl());
             return null;
         }

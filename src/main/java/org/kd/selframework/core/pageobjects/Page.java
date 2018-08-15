@@ -21,6 +21,13 @@ public abstract class Page implements WebDriveable {
         this.url = url;
     }
 
+    public void load(){
+        this.driver.get(url);
+        findElements();
+    }
+
+    public abstract boolean isLoaded();
+
     public void waitForPageLoaded() {
         long startTime = System.currentTimeMillis();
         final String jsVariable = "return document.readyState";
@@ -31,7 +38,7 @@ public abstract class Page implements WebDriveable {
             }
         };
 
-        WebDriverWait wait = new WebDriverWait(this.driver, new PropertiesReader().readFromConfig("timeout.default"));
+        WebDriverWait wait = new WebDriverWait(this.driver, PropertiesReader.readFromConfig("timeout.default"));
 
         try {
             wait.until((Function<? super WebDriver, Boolean>) expectation);
