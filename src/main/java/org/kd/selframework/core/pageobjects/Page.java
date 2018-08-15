@@ -25,6 +25,8 @@ public abstract class Page implements WebDriveable {
         findElements();
     }
 
+    public abstract boolean isLoaded();
+
     public void waitForPageLoaded() {
         long startTime = System.currentTimeMillis();
         final String jsScript = "return document.readyState";
@@ -39,8 +41,6 @@ public abstract class Page implements WebDriveable {
             throw new SiteNotOpened(this.url, Math.round(System.currentTimeMillis() - (startTime / 1000)));
         }
     }
-
-    public abstract boolean isLoaded();
 
     public void navigateTo() {
         this.driver.get(this.url);
