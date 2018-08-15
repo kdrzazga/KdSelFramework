@@ -20,20 +20,27 @@ public abstract class Page implements WebDriveable {
         this.url = url;
     }
 
+    public void load(){
+        this.driver.get(url);
+        findElements();
+    }
+
     public void waitForPageLoaded() {
         long startTime = System.currentTimeMillis();
         final String jsScript = "return document.readyState";
-        ExpectedCondition<Boolean> expectation = driver -> ((JavascriptExecutor) driver).executeScript(jsScript)
+        ExpectedCondition<Boolean> pageLoadComplete = driver -> ((JavascriptExecutor) driver).executeScript(jsScript)
                 .equals("complete");
 
-        WebDriverWait wait = new WebDriverWait(this.driver, PropertiesReader.readFromConfig("timeout.default"));
+        WebDriverWait wait = new WebDriverWait(this.driver, ((Integer)PropertiesReader.readFromConfig("timeout.default")).longValue());
 
         try {
-            wait.until(expectation);
+            wait.until(pageLoadComplete);
         } catch (TimeoutException | NoSuchElementException e) {
             throw new SiteNotOpened(this.url, Math.round(System.currentTimeMillis() - (startTime / 1000)));
         }
     }
+
+    public abstract boolean isLoaded();
 
     public void navigateTo() {
         this.driver.get(this.url);

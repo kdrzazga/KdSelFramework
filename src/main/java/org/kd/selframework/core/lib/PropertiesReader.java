@@ -27,7 +27,7 @@ public class PropertiesReader {
                 }
             }
         } catch (ConfigurationException e) {
-            logger.warn("Could not parse {}", propertiesFilePath);
+            logger.warn("\\u001b[0;34m" + "Could not parse {}", propertiesFilePath);
             return (T) "";
         }
     }
