@@ -1,6 +1,5 @@
 package org.kd.selframework.core.pageobjects;
 
-import org.kd.selframework.core.exceptions.NotImplementedYetException;
 import org.kd.selframework.core.lib.PropertiesReader;
 import org.kd.selframework.core.lib.TestLogger;
 import org.openqa.selenium.*;
@@ -49,7 +48,24 @@ public final class LocatorHelper {
         try {
             elementLocated = ExpectedConditions.presenceOfElementLocated(locator);
             element = wait.until(elementLocated);
+            logger.log("Found element: " + element.getClass() + " with locator " + locator);
             return element;
+
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.error("Element " + locator.toString() + " not found on page " + driver.getCurrentUrl());
+            return null;
+        }
+    }
+
+    public static WebElement quietlyFindElementWithinElement(WebDriver driver, By locator, WebElement parent, int timeout) {
+        WebElement element;
+        ExpectedCondition<WebElement> elementLocated;
+
+        try {
+            element = parent.findElement(locator);
+            logger.log("Found element: " + element.getClass() + " within parent " + parent);
+            return element;
+
         } catch (NoSuchElementException | TimeoutException e) {
             logger.error("Element " + locator.toString() + " not found on page " + driver.getCurrentUrl());
             return null;
@@ -57,11 +73,36 @@ public final class LocatorHelper {
     }
 
     public static List<WebElement> quietlyFindElements(WebDriver driver, By locator, String locatorArg) {
-        throw new NotImplementedYetException();
+        return quietlyFindElements(driver, locator, locatorArg, TIMEOUT);
     }
 
     public static List<WebElement> quietlyFindElements(WebDriver driver, By locator, String locatorArg, int timeout) {
-        throw new NotImplementedYetException();
+        List<WebElement> elements;
+        try {
+            elements = driver.findElements(locator);
+            logger.log("Found " + elements.size() + " elements.");
+            return elements;
+
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.error("Element " + locator.toString() + " not found on page " + driver.getCurrentUrl());
+            return null;
+        }
+    }
+
+    public static List<WebElement> quietlyFindElementsWithin(WebDriver driver, WebElement parent, By locator, int timeout) {
+        List<WebElement> elements;
+        try {
+            elements = parent.findElements(locator);
+            logger.log("Found " + elements.size() + " elements.");
+            return elements;
+
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.error("Element " + locator.toString() + " not found on page " + driver.getCurrentUrl());
+            return null;
+        }
+    }
+    public static List<WebElement> quietlyFindElementsWithin(WebDriver driver, WebElement parent, By locator) {
+        return quietlyFindElementsWithin(driver, parent, locator, TIMEOUT);
     }
 
     public static WebElement findClickableElement(WebDriver driver, By locator, int timeout) {

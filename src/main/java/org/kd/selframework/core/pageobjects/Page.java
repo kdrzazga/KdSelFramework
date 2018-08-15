@@ -16,8 +16,8 @@ import java.util.Objects;
 public abstract class Page implements WebDriveable {
 
     protected WebDriver driver;
-    protected String url;
-    protected TestLogger logger = new TestLogger();
+    protected final String url;
+    protected final TestLogger logger = new TestLogger();
 
     public Page(WebDriver driver, String url) {
         this.driver = driver;
@@ -25,8 +25,8 @@ public abstract class Page implements WebDriveable {
     }
 
     public void load(){
-        this.driver.get(url);
-        findElements();
+        while (!this.isLoaded())
+            this.waitForPageLoaded();
     }
 
     public abstract boolean isLoaded();
@@ -79,10 +79,6 @@ public abstract class Page implements WebDriveable {
 
     public String getTitle() {
         return driver.getTitle();
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getUrl() {
