@@ -11,13 +11,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
 import java.util.NoSuchElementException;
-import java.util.function.Function;
+import java.util.Objects;
 
 public abstract class Page implements WebDriveable {
 
     protected WebDriver driver;
-    protected String url;
-    protected TestLogger logger = new TestLogger();
+    protected final String url;
+    protected final TestLogger logger = new TestLogger();
 
     public Page(WebDriver driver, String url) {
         this.driver = driver;
@@ -25,28 +25,24 @@ public abstract class Page implements WebDriveable {
     }
 
     public void load(){
-        this.driver.get(url);
-        findElements();
+        while (!this.isLoaded())
+            this.waitForPageLoaded();
     }
 
     public abstract boolean isLoaded();
 
     public void waitForPageLoaded() {
         long startTime = System.currentTimeMillis();
-        final String jsVariable = "return document.readyState";
-        ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver driver) {
-                return ((JavascriptExecutor) driver).executeScript(jsVariable)
-                        .equals("complete");
-            }
-        };
+        final String jsScript = "return document.readyState";
+        ExpectedCondition<Boolean> pageLoadComplete = driver -> ((JavascriptExecutor) Objects.requireNonNull(driver)).executeScript(jsScript)
+                .equals("complete");
 
-        WebDriverWait wait = new WebDriverWait(this.driver, PropertiesReader.readFromConfig("timeout.default"));
+        WebDriverWait wait = new WebDriverWait(this.driver, ((Integer)PropertiesReader.readFromConfig("timeout.default")).longValue());
 
         try {
-            wait.until((Function<? super WebDriver, Boolean>) expectation);
+            wait.until(pageLoadComplete);
         } catch (TimeoutException | NoSuchElementException e) {
-            throw new SiteNotOpened(this.url, Math.round(System.currentTimeMillis() - (startTime / 1000)));
+            throw new SiteNotOpened(this.url, Math.round(System.currentTimeMillis() - startTime / 1000));
         }
     }
 
@@ -83,10 +79,6 @@ public abstract class Page implements WebDriveable {
 
     public String getTitle() {
         return driver.getTitle();
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getUrl() {
