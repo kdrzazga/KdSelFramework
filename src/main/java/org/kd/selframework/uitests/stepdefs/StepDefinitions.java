@@ -3,7 +3,7 @@ package org.kd.selframework.uitests.stepdefs;
 import cucumber.api.java.en.Given;
 import org.kd.selframework.core.stepdefs.AbstractStepDefinitions;
 import org.kd.selframework.uitests.google_site.PO_Index;
-import org.kd.selframework.core.general.WebDriverFactory;
+import org.kd.selframework.core.utils.WebDriverFactory;
 
 public class StepDefinitions extends AbstractStepDefinitions {
     private final PO_Index indexPage = new PO_Index(WebDriverFactory.createChromeDriver());

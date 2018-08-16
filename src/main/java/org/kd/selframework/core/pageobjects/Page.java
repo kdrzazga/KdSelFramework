@@ -1,9 +1,10 @@
 package org.kd.selframework.core.pageobjects;
 
 import org.apache.commons.io.FileUtils;
-import org.kd.selframework.core.exceptions.SiteNotOpened;
+import org.kd.selframework.core.exceptions.SiteNotOpenedException;
 import org.kd.selframework.core.lib.PropertiesReader;
 import org.kd.selframework.core.lib.TestLogger;
+import org.kd.selframework.core.utils.WindowUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -41,8 +42,8 @@ public abstract class Page implements WebDriveable {
 
         try {
             wait.until(pageLoadComplete);
-        } catch (TimeoutException | NoSuchElementException e) {
-            throw new SiteNotOpened(this.url, Math.round(System.currentTimeMillis() - startTime / 1000));
+        } catch (TimeoutException e) {
+            throw new SiteNotOpenedException(this.url, Math.round(System.currentTimeMillis() - startTime / 1000));
         }
     }
 
@@ -65,6 +66,12 @@ public abstract class Page implements WebDriveable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void openInNewTab() {
+        JavascriptExecutor js = (JavascriptExecutor)driver ;
+        js.executeScript("window.open(arguments[0], '_blank');", url);
+        WindowUtils.switchWindow(driver, url, true);
     }
 
     @Override

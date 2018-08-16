@@ -1,4 +1,4 @@
-package org.kd.selframework.core.general;
+package org.kd.selframework.core.utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
