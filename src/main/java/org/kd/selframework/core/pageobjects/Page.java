@@ -29,33 +29,18 @@ public abstract class Page implements WebDriveable {
             this.waitForPageLoaded();
     }
 
-    public abstract boolean isLoaded();
-
-    public void waitForPageLoaded() {
-        long startTime = System.currentTimeMillis();
-        final String jsScript = "return document.readyState";
-        ExpectedCondition<Boolean> pageLoadComplete = driver -> ((JavascriptExecutor) Objects.requireNonNull(driver)).executeScript(jsScript)
-                .equals("complete");
-
-        WebDriverWait wait = new WebDriverWait(this.driver, ((Integer)PropertiesReader.readFromConfig("timeout.default")).longValue());
-
-        try {
-            wait.until(pageLoadComplete);
-        } catch (TimeoutException | NoSuchElementException e) {
-            throw new SiteNotOpened(this.url, Math.round(System.currentTimeMillis() - startTime / 1000));
-        }
-    }
-
     public void navigateTo() {
         this.driver.get(this.url);
     }
 
     public void refresh(){
         this.driver.navigate().refresh();
+        load();
     }
 
     public void navigateBack(){
         this.driver.navigate().back();
+        load();
     }
 
     public void takeScreenshot(String filePath){
@@ -64,6 +49,30 @@ public abstract class Page implements WebDriveable {
             FileUtils.copyFile(scrFile, new File(filePath));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private boolean isLoaded() {
+        waitForPageLoaded();
+        return driver.getCurrentUrl().contains(this.getUrl());
+    }
+
+    private void waitForPageLoaded(){
+        waitForPageLoaded(this.driver, this.url);
+    }
+
+    public static void waitForPageLoaded(WebDriver driver, String url) {
+        long startTime = System.currentTimeMillis();
+        final String jsScript = "return document.readyState";
+        ExpectedCondition<Boolean> pageLoadComplete = drv -> ((JavascriptExecutor) Objects.requireNonNull(driver)).executeScript(jsScript)
+                .equals("complete");
+
+        WebDriverWait wait = new WebDriverWait(driver, ((Integer)PropertiesReader.readFromConfig("timeout.default")).longValue());
+
+        try {
+            wait.until(pageLoadComplete);
+        } catch (TimeoutException | NoSuchElementException e) {
+            throw new SiteNotOpened(url, Math.round(System.currentTimeMillis() - startTime / 1000));
         }
     }
 

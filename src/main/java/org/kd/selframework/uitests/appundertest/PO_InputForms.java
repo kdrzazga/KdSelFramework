@@ -23,7 +23,6 @@ public class PO_InputForms extends Page {
     }
 
     public void enterMessage(String message){
-
         LocatorHelper.focusOnElement(driver, userMessageTextBox);
         userMessageTextBox.sendKeys(message);
     }
@@ -32,9 +31,5 @@ public class PO_InputForms extends Page {
         return "not implemneted yet";
     }
 
-    @Override
-    public boolean isLoaded() {
-        waitForPageLoaded();
-        return driver.getCurrentUrl().contains(this.getUrl());
-    }
+
 }

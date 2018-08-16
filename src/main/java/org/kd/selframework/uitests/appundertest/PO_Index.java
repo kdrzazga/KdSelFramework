@@ -26,12 +26,6 @@ public final class PO_Index extends Page {
         super(driver, PropertiesReader.readFromConfig("app-under-test.url"));
     }
 
-    @Override
-    public boolean isLoaded() {
-        waitForPageLoaded();
-        return driver.getCurrentUrl().contains(this.getUrl());
-    }
-
     public void navigateTo() {
         super.navigateTo();
 
@@ -61,6 +55,16 @@ public final class PO_Index extends Page {
                 .orElse(false);
     }
 
+    public void clickMenuItem(String itemName) {
+        WebElement inputFormsItem = getMenuItem(itemName);
+
+        if (inputFormsItem == null)
+            logger.error("Menu item " + itemName + " not found");
+        else {
+            inputFormsItem.click();
+        }
+    }
+
     private WebElement getMenuItem(String item) {
         if (!readMenuListItems().contains(item))
             return null;
@@ -70,7 +74,6 @@ public final class PO_Index extends Page {
                 return menuItem;
 
         }
-
         return null;
     }
 

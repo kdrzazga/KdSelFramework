@@ -4,7 +4,9 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.kd.selframework.core.exceptions.SiteNotOpened;
 import org.kd.selframework.core.general.WebDriverFactory;
+import org.kd.selframework.core.lib.TestLogger;
 import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.uitests.appundertest.PO_Index;
 import org.kd.selframework.uitests.appundertest.PO_InputForms;
@@ -28,6 +30,8 @@ public class StepDefinitions {
 
     private final Map<String, Page> pagenamePageobjectMap = new Hashtable<>();
 
+    private final TestLogger logger = new TestLogger();
+
     public StepDefinitions() {
         pagenamePageobjectMap.put("index", indexPage);
         pagenamePageobjectMap.put("Input Forms", inputFormsPage);
@@ -45,14 +49,26 @@ public class StepDefinitions {
         site.findElements();
     }
 
+    @Then("^I expect the page title is (.*)$")
+    public void checkPageTitle(String expectedTitle) {
+        assertThat(expectedTitle, is(equalTo(driver.getTitle())));
+    }
+
+    @Then("^I expect to navigate to (.*)$")
+    public void checkPageUrl(String expectedUrl) {
+        try {
+            Page.waitForPageLoaded(this.driver, expectedUrl);
+        }
+
+        catch (SiteNotOpened siteNotOpenedException){
+            logger.error("Couldn't navigate to " + expectedUrl);
+        }
+        assertThat(expectedUrl, is(equalTo(driver.getCurrentUrl())));
+    }
+
     /*
         For Index page - MainPage
      */
-
-    @Then("^I expect the page title is (.*)$")
-    public void checkPageTitle(String expectedTitle) {
-        assertEquals(expectedTitle, indexPage.getTitle());
-    }
 
     @Then("^I expect Menu List is available$")
     public void checkMenuListAvailability() {
@@ -70,13 +86,23 @@ public class StepDefinitions {
     }
 
     @Then("^I expect item (.*) to be available$")
-    public void checkIfItemIsContained(String itemName){
+    public void checkIfItemIsContained(String itemName) {
         assertTrue(indexPage.readMenuListItems().contains(itemName));
     }
 
     @Then("^I expect item (.*) to be visible$")
-    public void checkIfItemIsVisible(String itemName){
+    public void checkIfItemIsVisible(String itemName) {
         assertTrue(indexPage.isItemVisible(itemName));
+    }
+
+    @When("^I unfold Input Forms side menu$")
+    public void unfoldInputForms() {
+        clickSideMenuItem("Input Forms");
+    }
+
+    @When("^I click (.*) item$")
+    public void clickSideMenuItem(String itemName) {
+        indexPage.clickMenuItem(itemName);
     }
 
     /*
