@@ -11,8 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public abstract class Page implements WebDriveable {
 
@@ -25,9 +25,24 @@ public abstract class Page implements WebDriveable {
         this.url = url;
     }
 
-    public void load(){
-        while (!this.isLoaded())
-            this.waitForPageLoaded();
+    public void load() {
+        final int step = 500;
+
+        Integer timeoutSeconds = PropertiesReader.readFromConfig("timeout.loadpage");
+        IntStream.range(0, timeoutSeconds * 1000 / step)
+                .forEach(i -> {
+                    if (this.isLoaded())
+                        return;
+
+                    try {
+                        Thread.sleep(step);
+                        this.waitForPageLoaded();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+        throw new SiteNotOpenedException(this.url, timeoutSeconds);
     }
 
     public abstract boolean isLoaded();
@@ -38,7 +53,7 @@ public abstract class Page implements WebDriveable {
         ExpectedCondition<Boolean> pageLoadComplete = driver -> ((JavascriptExecutor) Objects.requireNonNull(driver)).executeScript(jsScript)
                 .equals("complete");
 
-        WebDriverWait wait = new WebDriverWait(this.driver, ((Integer)PropertiesReader.readFromConfig("timeout.default")).longValue());
+        WebDriverWait wait = new WebDriverWait(this.driver, ((Integer) PropertiesReader.readFromConfig("timeout.loadpage")).longValue());
 
         try {
             wait.until(pageLoadComplete);
@@ -51,16 +66,16 @@ public abstract class Page implements WebDriveable {
         this.driver.get(this.url);
     }
 
-    public void refresh(){
+    public void refresh() {
         this.driver.navigate().refresh();
     }
 
-    public void navigateBack(){
+    public void navigateBack() {
         this.driver.navigate().back();
     }
 
-    public void takeScreenshot(String filePath){
-        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+    public void takeScreenshot(String filePath) {
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(scrFile, new File(filePath));
         } catch (IOException e) {
@@ -69,7 +84,7 @@ public abstract class Page implements WebDriveable {
     }
 
     public void openInNewTab() {
-        JavascriptExecutor js = (JavascriptExecutor)driver ;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.open(arguments[0], '_blank');", url);
         WindowUtils.switchWindow(driver, url, true);
     }
