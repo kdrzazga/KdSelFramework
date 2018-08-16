@@ -1,17 +1,18 @@
 package org.kd.selframework.core.pageobjects;
 
 import org.apache.commons.io.FileUtils;
-import org.kd.selframework.core.exceptions.SiteNotOpened;
+import org.kd.selframework.core.exceptions.SiteNotOpenedException;
 import org.kd.selframework.core.lib.PropertiesReader;
 import org.kd.selframework.core.lib.TestLogger;
+import org.kd.selframework.core.utils.WindowUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public abstract class Page implements WebDriveable {
 
@@ -24,9 +25,40 @@ public abstract class Page implements WebDriveable {
         this.url = url;
     }
 
-    public void load(){
-        while (!this.isLoaded())
-            this.waitForPageLoaded();
+    public void load() {
+        final int step = 500;
+
+        Integer timeoutSeconds = PropertiesReader.readFromConfig("timeout.loadpage");
+        IntStream.range(0, timeoutSeconds * 1000 / step)
+                .forEach(i -> {
+                    if (this.isLoaded())
+                        return;
+
+                    try {
+                        Thread.sleep(step);
+                        this.waitForPageLoaded();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+        throw new SiteNotOpenedException(this.url, timeoutSeconds);
+    }
+
+
+    public void waitForPageLoaded() {
+        long startTime = System.currentTimeMillis();
+        final String jsScript = "return document.readyState";
+        ExpectedCondition<Boolean> pageLoadComplete = driver -> ((JavascriptExecutor) Objects.requireNonNull(driver)).executeScript(jsScript)
+                .equals("complete");
+
+        WebDriverWait wait = new WebDriverWait(this.driver, ((Integer) PropertiesReader.readFromConfig("timeout.loadpage")).longValue());
+
+        try {
+            wait.until(pageLoadComplete);
+        } catch (TimeoutException e) {
+            throw new SiteNotOpenedException(this.url, Math.round(System.currentTimeMillis() - startTime / 1000));
+        }
     }
 
     public void navigateTo() {
@@ -61,19 +93,11 @@ public abstract class Page implements WebDriveable {
         waitForPageLoaded(this.driver, this.url);
     }
 
-    public static void waitForPageLoaded(WebDriver driver, String url) {
-        long startTime = System.currentTimeMillis();
-        final String jsScript = "return document.readyState";
-        ExpectedCondition<Boolean> pageLoadComplete = drv -> ((JavascriptExecutor) Objects.requireNonNull(driver)).executeScript(jsScript)
-                .equals("complete");
 
-        WebDriverWait wait = new WebDriverWait(driver, ((Integer)PropertiesReader.readFromConfig("timeout.default")).longValue());
-
-        try {
-            wait.until(pageLoadComplete);
-        } catch (TimeoutException | NoSuchElementException e) {
-            throw new SiteNotOpened(url, Math.round(System.currentTimeMillis() - startTime / 1000));
-        }
+    public void openInNewTab() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.open(arguments[0], '_blank');", url);
+        WindowUtils.switchWindow(driver, url, true);
     }
 
     @Override
