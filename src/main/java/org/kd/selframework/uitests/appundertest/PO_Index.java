@@ -1,6 +1,7 @@
 package org.kd.selframework.uitests.appundertest;
 
 import org.kd.selframework.core.lib.PropertiesReader;
+import org.kd.selframework.core.lib.TestLogger;
 import org.kd.selframework.core.pageobjects.LocatorHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,12 +19,17 @@ public final class PO_Index extends Page {
     private final By treeMenuSelector = By.id("treemenu");
     private final By examplesListSelector = By.tagName("li");
 
-    private static WebElement inputFormsLinkNode;
+    private final TestLogger logger = new TestLogger();
     private static WebElement treeMenu;
     private static List<WebElement> examplesList;
 
     public PO_Index(WebDriver driver) {
         super(driver, PropertiesReader.readFromConfig("app-under-test.url"));
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return false;
     }
 
     public void navigateTo() {

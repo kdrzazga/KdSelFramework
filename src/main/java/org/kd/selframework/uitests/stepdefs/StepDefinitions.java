@@ -4,8 +4,8 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.kd.selframework.core.exceptions.SiteNotOpened;
-import org.kd.selframework.core.general.WebDriverFactory;
+import org.kd.selframework.core.exceptions.SiteNotOpenedException;
+import org.kd.selframework.core.utils.WebDriverFactory;
 import org.kd.selframework.core.lib.TestLogger;
 import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.uitests.appundertest.PO_Index;
@@ -57,10 +57,10 @@ public class StepDefinitions {
     @Then("^I expect to navigate to (.*)$")
     public void checkPageUrl(String expectedUrl) {
         try {
-            Page.waitForPageLoaded(this.driver, expectedUrl);
+            indexPage.waitForPageLoaded();
         }
 
-        catch (SiteNotOpened siteNotOpenedException){
+        catch (SiteNotOpenedException siteNotOpenedException){
             logger.error("Couldn't navigate to " + expectedUrl);
         }
         assertThat(expectedUrl, is(equalTo(driver.getCurrentUrl())));
@@ -95,10 +95,15 @@ public class StepDefinitions {
         assertTrue(indexPage.isItemVisible(itemName));
     }
 
-    @When("^I unfold Input Forms side menu$")
-    public void unfoldInputForms() {
-        clickSideMenuItem("Input Forms");
+    @When("^I unfold (.*) side menu$")
+    public void unfoldInputForms(String itemName) {
+        clickSideMenuItem(itemName);
     }
+
+    /*@When("^I unfold Date pickers side menu$")
+    public void unfoldDatePickers() {
+        clickSideMenuItem("Date pickers");
+    }*/
 
     @When("^I click (.*) item$")
     public void clickSideMenuItem(String itemName) {
