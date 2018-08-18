@@ -1,5 +1,6 @@
 package org.kd.selframework.uitests.appundertest;
 
+import org.kd.selframework.core.exceptions.NotImplementedYetException;
 import org.kd.selframework.core.lib.PropertiesReader;
 import org.kd.selframework.core.lib.TestLogger;
 import org.kd.selframework.core.pageobjects.LocatorHelper;
@@ -15,9 +16,8 @@ import java.util.stream.Collectors;
 
 public final class PO_Index extends Page {
 
-    private final By inputFormsLinkNodeSelector = By.cssSelector("tree-indicator glyphicon glyphicon-chevron-right");
     private final By treeMenuSelector = By.id("treemenu");
-    private final By examplesListSelector = By.tagName("li");
+    private final By menuItemSelector = By.tagName("li");
 
     private final TestLogger logger = new TestLogger();
     private static WebElement treeMenu;
@@ -25,11 +25,6 @@ public final class PO_Index extends Page {
 
     public PO_Index(WebDriver driver) {
         super(driver, PropertiesReader.readFromConfig("app-under-test.url"));
-    }
-
-    @Override
-    public boolean isLoaded() {
-        return false;
     }
 
     public void navigateTo() {
@@ -41,13 +36,17 @@ public final class PO_Index extends Page {
     @Override
     public void findElements() {
         treeMenu = LocatorHelper.quietlyFindElement(this.driver, treeMenuSelector);
-
-        if (treeMenu != null)
-            examplesList = LocatorHelper.quietlyFindElementsWithin(this.driver, treeMenu, examplesListSelector);
+        examplesList = findMenuItemsInMenu(treeMenu);
     }
 
-    public List<String> readMenuListItems() {
-        return examplesList
+    private List<WebElement> findMenuItemsInMenu(WebElement menu) {
+        if (menu != null) {
+            return LocatorHelper.quietlyFindElementsWithin(this.driver, menu, menuItemSelector);
+        } else return new ArrayList<>(0);
+    }
+
+    private List<String> readMenuListItems(List<WebElement> list) {
+        return list
                 .stream()
                 .map(WebElement::getText)
                 .filter(item -> !item.isEmpty())
@@ -56,13 +55,13 @@ public final class PO_Index extends Page {
     }
 
     public boolean isItemVisible(String item) {
-        return Optional.ofNullable(getMenuItem(item))
+        return Optional.ofNullable(getMenuItem(examplesList, item))
                 .map(WebElement::isDisplayed)
                 .orElse(false);
     }
 
-    public void clickMenuItem(String itemName) {
-        WebElement inputFormsItem = getMenuItem(itemName);
+    private void clickMenuItem(String itemName, List<WebElement> itemsList) {
+        WebElement inputFormsItem = getMenuItem(itemsList, itemName);
 
         if (inputFormsItem == null)
             logger.error("Menu item " + itemName + " not found");
@@ -71,11 +70,11 @@ public final class PO_Index extends Page {
         }
     }
 
-    private WebElement getMenuItem(String item) {
-        if (!readMenuListItems().contains(item))
+    private WebElement getMenuItem(List<WebElement> itemsList, String item) {
+        if (!readMenuListItems(itemsList).contains(item))
             return null;
 
-        for (WebElement menuItem : examplesList) {
+        for (WebElement menuItem : itemsList) {
             if (menuItem.getText().equals(item))
                 return menuItem;
 
@@ -85,6 +84,24 @@ public final class PO_Index extends Page {
 
     public boolean getTreeMenuVisibility() {
         return LocatorHelper.isElementVisible(this.driver, treeMenuSelector);
+    }
+
+    public List<String> readSubItemsOfMenuItem(String item){
+
+        throw new NotImplementedYetException();
+    }
+
+    public List<String> readExamplesMenuListItems() {
+        return readMenuListItems(examplesList);
+    }
+
+    public void clickItemInExamplesMenuList(String itemName) {
+        clickMenuItem(itemName, examplesList);
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return false;
     }
 
     public WebElement getTreeMenu() {

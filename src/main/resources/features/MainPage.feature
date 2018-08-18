@@ -1,3 +1,4 @@
+#noinspection CucumberTableInspection
 Feature: 1.Main page
 
   Scenario: 1.1 Go to main page
@@ -24,7 +25,7 @@ Feature: 1.Main page
   Scenario Outline: <TC id> Check visibility of left side menu subitems
     When I navigate to index site
     And I unfold <Menu List Item> side menu
-    #Then I expect subitem <Menu List Subitem> to be visible
+    Then I expect subitems <Menu List Subitem> to be visible
 
     Examples:
       | TC id | Menu List Item          | Menu List Subitem                                                                                                                      |
