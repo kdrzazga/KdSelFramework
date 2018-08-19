@@ -6,7 +6,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 public class PropertiesReader {
 
-    private static final TestLogger logger = new TestLogger();
+    private static final TestLogger logger = TestLoggerSingleton.getInstance();
 
     public static <T> T readFromConfig(String keyName) {
         PropertiesConfiguration config = new PropertiesConfiguration();

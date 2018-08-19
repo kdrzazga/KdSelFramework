@@ -1,19 +1,24 @@
 package org.kd.selframework.core.pageobjects;
 
+import org.apache.commons.io.FileUtils;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
 import org.kd.selframework.core.lib.PropertiesReader;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
+import org.kd.selframework.core.lib.TestLoggerSingleton;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.kd.selframework.core.lib.TestLogger;
+import org.kd.selframework.core.utils.WindowUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.NoSuchElementException;
 
 public abstract class Page implements WebDriveable {
 
     protected WebDriver driver;
-    protected String url;
+    protected final String url;
+    protected final TestLogger logger = TestLoggerSingleton.getInstance();
 
     public Page(WebDriver driver, String url) {
         this.driver = driver;
@@ -25,17 +30,11 @@ public abstract class Page implements WebDriveable {
         findElements();
     }
 
-    public abstract boolean isLoaded();
-
     public void waitForPageLoaded() {
         long startTime = System.currentTimeMillis();
         final String jsVariable = "return document.readyState";
-        ExpectedCondition<Boolean> expectation = new ExpectedCondition<>() {
-            public Boolean apply(WebDriver driver) {
-                return ((JavascriptExecutor) driver).executeScript(jsVariable)
-                        .equals("complete");
-            }
-        };
+        ExpectedCondition<Boolean> expectation = driver -> ((JavascriptExecutor) driver).executeScript(jsVariable)
+                .equals("complete");
 
         WebDriverWait wait = new WebDriverWait(this.driver, PropertiesReader.readFromConfig("timeout.default"));
 
@@ -50,6 +49,29 @@ public abstract class Page implements WebDriveable {
         this.driver.get(this.url);
     }
 
+    public void refresh() {
+        this.driver.navigate().refresh();
+    }
+
+    public void navigateBack() {
+        this.driver.navigate().back();
+    }
+
+    public void takeScreenshot(String filePath) {
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(scrFile, new File(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openInNewTab() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.open(arguments[0], '_blank');", url);
+        WindowUtils.switchWindow(driver, url, true);
+    }
+
     @Override
     public WebDriver getDriver() {
         return this.driver;
@@ -62,10 +84,6 @@ public abstract class Page implements WebDriveable {
 
     public String getTitle() {
         return driver.getTitle();
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getUrl() {

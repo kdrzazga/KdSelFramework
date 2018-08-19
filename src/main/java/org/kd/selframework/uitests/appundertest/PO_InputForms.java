@@ -31,9 +31,4 @@ public class PO_InputForms extends Page {
         return "not implemneted yet";
     }
 
-
-    @Override
-    public boolean isLoaded() {
-        return false;
-    }
 }

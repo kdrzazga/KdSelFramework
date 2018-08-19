@@ -5,9 +5,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
+import org.kd.selframework.core.lib.TestLoggerSingleton;
 import org.kd.selframework.core.lib.TestLogger;
 import org.kd.selframework.uitests.appundertest.PO_Index;
-import org.kd.selframework.core.lib.TestLoggerSingleton;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
