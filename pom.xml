@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.kd.selframework</groupId>
-    <artifactId>framework</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>org.kd</groupId>
+    <artifactId>seleniumeasy</artifactId>
+    <version>0.9-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>10</maven.compiler.source>
+        <maven.compiler.target>10</maven.compiler.target>
         <junit.version>4.12</junit.version>
         <testng.version>6.8.7</testng.version>
         <selenium.version>2.39.0</selenium.version>
     </properties>
 
     <build>
-
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -25,7 +24,7 @@
                 <version>1.2.1</version>
                 <executions>
                     <execution>
-                        <phase>integration-test</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>java</goal>
                         </goals>
@@ -38,11 +37,11 @@
                     </executableDependency>
                     <mainClass>cucumber.api.cli.Main</mainClass>
                     <arguments>
-                        <argument>--format</argument>
+                        <argument>--plugin</argument>
                         <argument>junit:target/cucumber-junit-report/allcukes.xml</argument>
-                        <argument>--format</argument>
+                        <argument>--plugin</argument>
                         <argument>pretty</argument>
-                        <argument>--format</argument>
+                        <argument>--plugin</argument>
                         <argument>html:target/cucumber-html-report</argument>
                         <argument>--tags</argument>
                         <argument>@login</argument>
@@ -55,7 +54,7 @@
                     <dependency>
                         <groupId>info.cukes</groupId>
                         <artifactId>cucumber-core</artifactId>
-                        <version>1.1.5</version>
+                        <version>1.2.5</version>
                     </dependency>
 
                 </dependencies>
@@ -74,50 +73,46 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>2.28.0</version>
+            <version>3.13.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>2.50.0</version>
+        </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.5</version>
         </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.5</version>
         </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-core</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
+            <version>1.2.5</version>
         </dependency>
-
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-picocontainer</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
+            <version>1.2.5</version>
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-nop</artifactId>
-            <version>1.7.25</version>
-            <scope>test</scope>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.6</version>
         </dependency>
 
     </dependencies>
 
 </project>
+
