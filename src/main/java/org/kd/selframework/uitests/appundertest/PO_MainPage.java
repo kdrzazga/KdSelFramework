@@ -1,6 +1,6 @@
 package org.kd.selframework.uitests.appundertest;
 
-import org.kd.selframework.core.lib.PropertiesReader;
+import org.kd.selframework.core.utils.PropertiesReader;
 import org.kd.selframework.core.pageobjects.LocatorHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

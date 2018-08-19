@@ -1,8 +1,8 @@
 package org.kd.selframework.core.pageobjects;
 
-import org.kd.selframework.core.lib.PropertiesReader;
-import org.kd.selframework.core.lib.TestLogger;
-import org.kd.selframework.core.lib.TestLoggerSingleton;
+import org.kd.selframework.core.utils.PropertiesReader;
+import org.kd.selframework.core.utils.TestLogger;
+import org.kd.selframework.core.utils.TestLoggerSingleton;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;

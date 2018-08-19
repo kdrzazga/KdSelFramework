@@ -1,4 +1,4 @@
-package org.kd.selframework.uitests.stepdefs;
+package org.kd.selframework.core.utils;
 
 import org.kd.selframework.core.utils.WebDriverFactory;
 import org.openqa.selenium.WebDriver;

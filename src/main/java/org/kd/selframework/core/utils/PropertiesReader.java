@@ -1,4 +1,4 @@
-package org.kd.selframework.core.lib;
+package org.kd.selframework.core.utils;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.ConversionException;
