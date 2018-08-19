@@ -82,13 +82,17 @@ public final class PO_Index extends Page {
         return null;
     }
 
+    //private List
+
     public boolean getTreeMenuVisibility() {
         return LocatorHelper.isElementVisible(this.driver, treeMenuSelector);
     }
 
-    public List<String> readSubItemsOfMenuItem(String item){
+    public List<String> readSubItemsOfMenuItem(String item) {
 
-        throw new NotImplementedYetException();
+        List<String> remainingElements = readMenuListItems(examplesList);
+        remainingElements.removeAll(examplesList);
+        return null;//remainingElements.re
     }
 
     public List<String> readExamplesMenuListItems() {
