@@ -1,4 +1,4 @@
-package org.kd.selframework.core.lib;
+package org.kd.selframework.core.utils;
 
 public class TestLoggerSingleton {
     private static TestLogger globalLogger = null;

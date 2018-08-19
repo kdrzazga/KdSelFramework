@@ -1,4 +1,4 @@
-package org.kd.selframework.core.lib;
+package org.kd.selframework.core.utils;
 
 import java.io.IOException;
 import java.io.PrintWriter;

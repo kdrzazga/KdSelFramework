@@ -6,8 +6,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-import org.kd.selframework.core.lib.PropertiesReader;
-
 public class WebDriverFactory {
 
     private WebDriverFactory() {
