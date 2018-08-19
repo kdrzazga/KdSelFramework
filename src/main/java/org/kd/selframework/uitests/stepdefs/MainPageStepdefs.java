@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
 import org.kd.selframework.core.lib.TestLoggerSingleton;
 import org.kd.selframework.core.lib.TestLogger;
-import org.kd.selframework.uitests.appundertest.PO_Index;
+import org.kd.selframework.uitests.appundertest.PO_MainPage;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
@@ -22,9 +22,8 @@ import static org.junit.Assert.assertTrue;
 public class MainPageStepdefs {
 
     private final WebDriver driver = WebDriverSingleton.getInstance();
-    private final PO_Index indexPage = new PO_Index(driver);
+    private final PO_MainPage indexPage = new PO_MainPage(driver);
     private final TestLogger logger = TestLoggerSingleton.getInstance();
-    private String currentlyChosenMenuItem;
 
     @Then("^I expect to navigate to (.*)$")
     public void checkPageUrl(String expectedUrl) {
@@ -73,13 +72,11 @@ public class MainPageStepdefs {
     @When("^I click (.*) item$")
     public void clickSideMenuItem(String itemName) {
         indexPage.clickItemInExamplesMenuList(itemName);
-        currentlyChosenMenuItem = itemName;
     }
 
     @Then("I expect subitems (.*) to be visible")
     public void checkSubItems(List<String> expectedSubitems) {
-        List<String> actualSubtems = indexPage.readSubItemsOfMenuItem(currentlyChosenMenuItem);
-        Assert.assertThat(expectedSubitems, containsInAnyOrder(actualSubtems));
+        Assert.assertTrue(indexPage.readExamplesMenuListItems().containsAll(expectedSubitems));
     }
 
     @After

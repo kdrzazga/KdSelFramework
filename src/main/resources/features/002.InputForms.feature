@@ -1,4 +1,4 @@
-Feature: InputForms
+Feature: 2. InputForms
 
   Scenario Outline: Entering messages to Single Input Field
 

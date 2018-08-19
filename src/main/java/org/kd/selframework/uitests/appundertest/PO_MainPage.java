@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public final class PO_Index extends Page {
+public final class PO_MainPage extends Page {
 
     private final By treeMenuSelector = By.id("treemenu");
     private final By menuItemSelector = By.tagName("li");
@@ -20,7 +20,7 @@ public final class PO_Index extends Page {
     private static WebElement treeMenu;
     private static List<WebElement> examplesList;
 
-    public PO_Index(WebDriver driver) {
+    public PO_MainPage(WebDriver driver) {
         super(driver, PropertiesReader.readFromConfig("app-under-test.url"));
     }
 
@@ -85,12 +85,7 @@ public final class PO_Index extends Page {
         return LocatorHelper.isElementVisible(this.driver, treeMenuSelector);
     }
 
-    public List<String> readSubItemsOfMenuItem(String item) {
 
-        List<String> remainingElements = readMenuListItems(examplesList);
-        remainingElements.removeAll(examplesList);
-        return null;//remainingElements.re
-    }
 
     public List<String> readExamplesMenuListItems() {
         return readMenuListItems(examplesList);

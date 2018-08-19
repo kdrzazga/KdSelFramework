@@ -4,7 +4,7 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.kd.selframework.core.pageobjects.Page;
-import org.kd.selframework.uitests.appundertest.PO_Index;
+import org.kd.selframework.uitests.appundertest.PO_MainPage;
 import org.kd.selframework.uitests.appundertest.PO_InputForms;
 import org.openqa.selenium.WebDriver;
 
@@ -21,7 +21,7 @@ public class CommonStepdefs {
 
     private final WebDriver driver = WebDriverSingleton.getInstance();
 
-    private final PO_Index indexPage = new PO_Index(driver);
+    private final PO_MainPage indexPage = new PO_MainPage(driver);
     private final PO_InputForms inputFormsPage = new PO_InputForms(driver);
 
     public CommonStepdefs() {
