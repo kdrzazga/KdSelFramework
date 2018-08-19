@@ -1,21 +1,16 @@
 package org.kd.selframework.uitests.stepdefs;
 
 import cucumber.api.java.After;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
-import org.kd.selframework.core.utils.WebDriverFactory;
 import org.kd.selframework.core.lib.TestLogger;
-import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.uitests.appundertest.PO_Index;
-import org.kd.selframework.uitests.appundertest.PO_InputForms;
+import org.kd.selframework.core.lib.TestLoggerSingleton;
 import org.openqa.selenium.WebDriver;
 
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -28,7 +23,7 @@ public class MainPageStepdefs {
 
     private final WebDriver driver = WebDriverSingleton.getInstance();
     private final PO_Index indexPage = new PO_Index(driver);
-    private final TestLogger logger = new TestLogger();
+    private final TestLogger logger = TestLoggerSingleton.getInstance();
     private String currentlyChosenMenuItem;
 
     @Then("^I expect to navigate to (.*)$")

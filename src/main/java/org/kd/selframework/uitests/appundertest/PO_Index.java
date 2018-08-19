@@ -1,8 +1,8 @@
 package org.kd.selframework.uitests.appundertest;
 
-import org.kd.selframework.core.exceptions.NotImplementedYetException;
 import org.kd.selframework.core.lib.PropertiesReader;
 import org.kd.selframework.core.lib.TestLogger;
+import org.kd.selframework.core.lib.TestLoggerSingleton;
 import org.kd.selframework.core.pageobjects.LocatorHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +19,7 @@ public final class PO_Index extends Page {
     private final By treeMenuSelector = By.id("treemenu");
     private final By menuItemSelector = By.tagName("li");
 
-    private final TestLogger logger = new TestLogger();
+    private final TestLogger logger = TestLoggerSingleton.getInstance();
     private static WebElement treeMenu;
     private static List<WebElement> examplesList;
 

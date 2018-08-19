@@ -3,8 +3,6 @@ package org.kd.selframework.uitests.stepdefs;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.kd.selframework.core.utils.WebDriverFactory;
-import org.kd.selframework.uitests.appundertest.PO_Index;
 import org.kd.selframework.uitests.appundertest.PO_InputForms;
 import org.openqa.selenium.WebDriver;
 

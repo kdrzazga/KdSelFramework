@@ -4,7 +4,6 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.kd.selframework.core.pageobjects.Page;
-import org.kd.selframework.core.utils.WebDriverFactory;
 import org.kd.selframework.uitests.appundertest.PO_Index;
 import org.kd.selframework.uitests.appundertest.PO_InputForms;
 import org.openqa.selenium.WebDriver;
