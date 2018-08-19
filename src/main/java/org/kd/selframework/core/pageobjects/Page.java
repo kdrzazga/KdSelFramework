@@ -1,7 +1,7 @@
 package org.kd.selframework.core.pageobjects;
 
 import org.apache.commons.io.FileUtils;
-import org.kd.selframework.core.exceptions.SiteNotOpened;
+import org.kd.selframework.core.exceptions.SiteNotOpenedException;
 import org.kd.selframework.core.lib.PropertiesReader;
 import org.kd.selframework.core.lib.TestLogger;
 import org.openqa.selenium.*;
@@ -41,7 +41,7 @@ public abstract class Page implements WebDriveable {
         try {
             wait.until(expectation);
         } catch (TimeoutException | NoSuchElementException e) {
-            throw new SiteNotOpened(this.url, Math.round(System.currentTimeMillis() - (startTime / 1000)));
+            throw new SiteNotOpenedException(this.url, Math.round(System.currentTimeMillis() - (startTime / 1000)));
         }
     }
 

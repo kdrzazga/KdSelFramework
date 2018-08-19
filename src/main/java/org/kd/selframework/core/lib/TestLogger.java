@@ -1,5 +1,10 @@
 package org.kd.selframework.core.lib;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Vector;
+
 /*
     Simplified version of log4j
  */
@@ -28,14 +33,31 @@ public class TestLogger {
     private static final String WARN_COLOUR = PREFIX
             + NORMAL + SEPARATOR + FOREGROUND_YELLOW + SUFFIX;
     private static final String INFO_COLOUR = PREFIX
-            + NORMAL+ SEPARATOR + FOREGROUND_BLUE + SUFFIX;
+            + NORMAL + SEPARATOR + FOREGROUND_BLUE + SUFFIX;
 
-    public void log(String message){
+    private final List<String> logDump = new Vector<>();
+
+    public void log(String message) {
         System.out.println(INFO_COLOUR + message);
+        logDump.add(message);
     }
 
-    public void warn(String message){
+    public void warn(String message) {
         System.out.println(WARN_COLOUR + message);
+        logDump.add("[WARN] " + message);
     }
 
+    public void error(String message) {
+        System.out.println(ERROR_COLOUR + message);
+        logDump.add("[ERROR] " + message);
+    }
+
+    public void dumpToFile(String path) {
+        try (PrintWriter out = new PrintWriter(path)) {
+            logDump.forEach(out::println);
+        } catch (IOException ioexc) {
+            System.err.println("Problems with writing to file "
+                    + path + ioexc.getMessage());
+        }
+    }
 }

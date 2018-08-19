@@ -3,7 +3,7 @@ package org.kd.selframework.uitests.stepdefs;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import org.kd.selframework.core.general.WebDriverFactory;
+import org.kd.selframework.core.utils.WebDriverFactory;
 import org.kd.selframework.uitests.appundertest.PO_Index;
 
 import static org.junit.Assert.assertEquals;
