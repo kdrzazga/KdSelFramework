@@ -31,7 +31,6 @@ public class WebDriverFactory {
         }
     }
 
-
     public static WebDriver createChromeDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");

@@ -13,7 +13,7 @@ public class WindowUtils {
             String currentURL = driver
                     .getCurrentUrl();
             boolean isSwitchedToGivenURL = currentURL.contains(url);
-            if (!(isSwitchedToGivenURL ^ switchToGivenURL)) {
+            if (isSwitchedToGivenURL == switchToGivenURL) {
                 return;
             }
         }
