@@ -9,7 +9,6 @@ public final class PO_Index extends Page {
         super(driver, "http://www.google.com");
     }
 
-    @Override
     public boolean isLoaded() {
         waitForPageLoaded();
         return driver.getCurrentUrl().contains(this.getUrl());

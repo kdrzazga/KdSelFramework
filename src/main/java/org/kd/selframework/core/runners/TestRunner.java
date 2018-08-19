@@ -6,8 +6,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features",
-        glue = "src/main/java/uitests.stepdefs"
+        features = "src/main/resources/features",
+        glue = "src/main/java/org.kd.selframework.uitests.stepdefs"
 )
 
 public class TestRunner {
