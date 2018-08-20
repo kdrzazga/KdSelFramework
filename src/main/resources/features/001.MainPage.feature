@@ -1,3 +1,4 @@
+#noinspection CucumberTableInspection,CucumberTableInspection,CucumberTableInspection,CucumberTableInspection,CucumberTableInspection,CucumberTableInspection,CucumberTableInspection,CucumberTableInspection,CucumberTableInspection,CucumberTableInspection
 Feature: 1.Main page
 
  Scenario: 1.1 Go to main page
