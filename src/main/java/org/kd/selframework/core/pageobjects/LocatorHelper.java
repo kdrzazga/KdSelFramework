@@ -60,7 +60,6 @@ public final class LocatorHelper {
 
     public static WebElement quietlyFindElementWithinElement(WebDriver driver, By locator, WebElement parent, int timeout) {
         WebElement element;
-        ExpectedCondition<WebElement> elementLocated;
 
         try {
             element = parent.findElement(locator);
@@ -110,10 +109,12 @@ public final class LocatorHelper {
         ExpectedCondition<WebElement> elementLocated;
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         WebElement element;
+
         try {
             elementLocated = ExpectedConditions.elementToBeClickable(locator);
             element = wait.until(elementLocated);
             return element;
+
         } catch (TimeoutException | NoSuchElementException e) {
             logger.error("Element " + locator.toString() + " not found on page " + driver.getCurrentUrl());
             return null;
@@ -125,13 +126,14 @@ public final class LocatorHelper {
     }
 
     public static void focusOnElement(WebDriver driver, WebElement element) {
-        Actions actionChains = new Actions(driver);
-        actionChains.moveToElement(element).click().perform();
+        Actions action = new Actions(driver);
+        action.moveToElement(element).click().perform();
     }
 
     public static void sendKeys(WebDriver driver, WebElement element, String text) {
         focusOnElement(driver, element);
-        element.sendKeys(text);
+        Actions action = new Actions(driver);
+        action.sendKeys(element, text).perform();
     }
 
     public static WebElement getElementFromDiv(WebDriver driver, String containerId, String elementTag, int timeout) {

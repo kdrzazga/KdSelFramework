@@ -2,11 +2,13 @@ package org.kd.selframework.core.pageobjects;
 
 import org.apache.commons.io.FileUtils;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
-import org.kd.selframework.core.lib.PropertiesReader;
-import org.kd.selframework.core.lib.TestLogger;
+import org.kd.selframework.core.utils.PropertiesReader;
+import org.kd.selframework.core.utils.TestLoggerSingleton;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.kd.selframework.core.utils.TestLogger;
+import org.kd.selframework.core.utils.WindowUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +17,8 @@ import java.util.NoSuchElementException;
 public abstract class Page implements WebDriveable {
 
     protected WebDriver driver;
-    protected String url;
-    protected TestLogger logger = new TestLogger();
+    protected final String url;
+    protected final TestLogger logger = TestLoggerSingleton.getInstance();
 
     public Page(WebDriver driver, String url) {
         this.driver = driver;
@@ -27,8 +29,6 @@ public abstract class Page implements WebDriveable {
         this.driver.get(url);
         findElements();
     }
-
-    public abstract boolean isLoaded();
 
     public void waitForPageLoaded() {
         long startTime = System.currentTimeMillis();
@@ -49,21 +49,27 @@ public abstract class Page implements WebDriveable {
         this.driver.get(this.url);
     }
 
-    public void refresh(){
+    public void refresh() {
         this.driver.navigate().refresh();
     }
 
-    public void navigateBack(){
+    public void navigateBack() {
         this.driver.navigate().back();
     }
 
-    public void takeScreenshot(String filePath){
-        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+    public void takeScreenshot(String filePath) {
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(scrFile, new File(filePath));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void openInNewTab() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.open(arguments[0], '_blank');", url);
+        WindowUtils.switchWindow(driver, url, true);
     }
 
     @Override
@@ -78,10 +84,6 @@ public abstract class Page implements WebDriveable {
 
     public String getTitle() {
         return driver.getTitle();
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getUrl() {
