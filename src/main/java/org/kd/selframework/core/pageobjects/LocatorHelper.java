@@ -58,6 +58,10 @@ public final class LocatorHelper {
         }
     }
 
+    public static WebElement quietlyFindElementWithinElement(WebDriver driver, By locator, WebElement parent) {
+        return quietlyFindElementWithinElement(driver, locator, parent, TIMEOUT);
+    }
+
     public static WebElement quietlyFindElementWithinElement(WebDriver driver, By locator, WebElement parent, int timeout) {
         WebElement element;
 
