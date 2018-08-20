@@ -5,6 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.core.utils.WebDriverSingleton;
+import org.kd.selframework.uitests.appundertest.PO_CheckboxDemoPage;
 import org.kd.selframework.uitests.appundertest.PO_MainPage;
 import org.kd.selframework.uitests.appundertest.PO_SimpleFormPage;
 import org.openqa.selenium.WebDriver;
@@ -24,10 +25,12 @@ public class CommonStepdefs {
 
     private final PO_MainPage mainPage = new PO_MainPage(driver);
     private final PO_SimpleFormPage simpleFormPage = new PO_SimpleFormPage(driver);
+    private final PO_CheckboxDemoPage checkboxDemoPage = new PO_CheckboxDemoPage(driver);
 
     public CommonStepdefs() {
         pagenamePageobjectMap.put("index", mainPage);
         pagenamePageobjectMap.put("Input Forms", simpleFormPage);
+        pagenamePageobjectMap.put("Checkbox Demo", checkboxDemoPage);
     }
 
     @Given("^I navigate to (.*) site$")
@@ -38,7 +41,6 @@ public class CommonStepdefs {
         site.load();
         site.findElements();
     }
-
 
     @Then("^I expect the page title is (.*)$")
     public void checkPageTitle(String expectedTitle) {

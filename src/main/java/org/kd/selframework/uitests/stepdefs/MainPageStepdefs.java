@@ -5,8 +5,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
-import org.kd.selframework.core.utils.TestLoggerSingleton;
 import org.kd.selframework.core.utils.TestLogger;
+import org.kd.selframework.core.utils.TestLoggerSingleton;
 import org.kd.selframework.core.utils.WebDriverSingleton;
 import org.kd.selframework.uitests.appundertest.PO_MainPage;
 import org.openqa.selenium.WebDriver;
@@ -34,10 +34,6 @@ public class MainPageStepdefs {
         }
         assertThat(expectedUrl, is(equalTo(driver.getCurrentUrl())));
     }
-
-    /*
-        For Index page - MainPage
-     */
 
     @Then("^I expect Menu List is available$")
     public void checkMenuListAvailability() {
