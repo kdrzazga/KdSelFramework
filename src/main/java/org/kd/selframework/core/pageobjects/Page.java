@@ -3,12 +3,12 @@ package org.kd.selframework.core.pageobjects;
 import org.apache.commons.io.FileUtils;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
 import org.kd.selframework.core.utils.PropertiesReader;
+import org.kd.selframework.core.utils.TestLogger;
 import org.kd.selframework.core.utils.TestLoggerSingleton;
+import org.kd.selframework.core.utils.WindowUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.kd.selframework.core.utils.TestLogger;
-import org.kd.selframework.core.utils.WindowUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +32,8 @@ public abstract class Page implements WebDriveable {
 
     public void waitForPageLoaded() {
         long startTime = System.currentTimeMillis();
-        final String jsVariable = "return document.readyState";
-        ExpectedCondition<Boolean> expectation = driver -> ((JavascriptExecutor) driver).executeScript(jsVariable)
+        final String jsScript = "return document.readyState";
+        ExpectedCondition<Boolean> expectation = driver -> ((JavascriptExecutor) driver).executeScript(jsScript)
                 .equals("complete");
 
         WebDriverWait wait = new WebDriverWait(this.driver, PropertiesReader.readFromConfig("timeout.default"));
