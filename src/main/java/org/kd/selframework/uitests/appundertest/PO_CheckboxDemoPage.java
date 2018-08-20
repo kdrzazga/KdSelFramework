@@ -58,7 +58,7 @@ public class PO_CheckboxDemoPage extends Page {
         if (chkbox != null)
             textCheckboxMap.get(chkboxCaption).click();
         else
-            logger.error("Please check scenario - no checkbox with caption " + chkboxCaption);
+            logger.error(PropertiesReader.readFromConfig("scenario.error.wrongbuttonname") + chkboxCaption);
     }
 
     public void clickCheckUncheckAllButton() {

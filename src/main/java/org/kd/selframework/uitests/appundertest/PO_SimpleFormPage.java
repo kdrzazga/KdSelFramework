@@ -38,8 +38,6 @@ public class PO_SimpleFormPage extends Page {
 
     private static Map<String, WebElement> captionButtonMap;
 
-    private final int TIMEOUT = PropertiesReader.readFromConfig("timeout.default");
-
     public PO_SimpleFormPage(WebDriver driver) {
         super(driver, PropertiesReader.readFromConfig("app-under-test.inputforms.url"));
     }
@@ -47,21 +45,21 @@ public class PO_SimpleFormPage extends Page {
     @Override
     public void findElements() {
         formMessage = quietlyFindElement(driver, formMessageSelector);
-        userMsgFormGroup = quietlyFindElementWithinElement(driver, userMsgFormGroupSelector, formMessage, TIMEOUT);
+        userMsgFormGroup = quietlyFindElementWithinElement(driver, userMsgFormGroupSelector, formMessage);
         if (userMsgFormGroup != null)
-            userMessageTextBox = quietlyFindElementWithinElement(driver, userMessageTextBoxSelector, userMsgFormGroup, TIMEOUT);
+            userMessageTextBox = quietlyFindElementWithinElement(driver, userMessageTextBoxSelector, userMsgFormGroup);
 
-        showMessageButton = quietlyFindElementWithinElement(driver, buttonSelector, formMessage, TIMEOUT);
+        showMessageButton = quietlyFindElementWithinElement(driver, buttonSelector, formMessage);
 
         formGetTotal = quietlyFindElement(driver, formGetTotalSelector);
-        getTotalButton = quietlyFindElementWithinElement(driver, buttonSelector, formGetTotal, TIMEOUT);
+        getTotalButton = quietlyFindElementWithinElement(driver, buttonSelector, formGetTotal);
 
         findDisplayedResultElements();
 
         findDisplayedMessageElements();
 
-        valueATextbox = quietlyFindElementWithinElement(driver, valueATextboxSelector, formGetTotal, TIMEOUT);
-        valueBTextbox = quietlyFindElementWithinElement(driver, valueBTextboxSelector, formGetTotal, TIMEOUT);
+        valueATextbox = quietlyFindElementWithinElement(driver, valueATextboxSelector, formGetTotal);
+        valueBTextbox = quietlyFindElementWithinElement(driver, valueBTextboxSelector, formGetTotal);
 
         captionButtonMap = new Hashtable<>(2);
         captionButtonMap.put("Show Message", showMessageButton);
@@ -69,13 +67,13 @@ public class PO_SimpleFormPage extends Page {
     }
 
     private void findDisplayedResultElements() {
-        resultSpan = quietlyFindElementWithinElement(driver, resultSpanSelector, formGetTotal, TIMEOUT);
+        resultSpan = quietlyFindElementWithinElement(driver, resultSpanSelector, formGetTotal);
     }
 
     private void findDisplayedMessageElements() {
-        userMessageDiv = quietlyFindElement(driver, userMessageDivSelector, TIMEOUT);
+        userMessageDiv = quietlyFindElement(driver, userMessageDivSelector);
         if (userMessageDiv != null)
-            displayedMessageSpan = quietlyFindElementWithinElement(driver, displayedMessageSpanSelector, userMessageDiv, TIMEOUT);
+            displayedMessageSpan = quietlyFindElementWithinElement(driver, displayedMessageSpanSelector, userMessageDiv);
     }
 
     public void enterMessage(String message) {
