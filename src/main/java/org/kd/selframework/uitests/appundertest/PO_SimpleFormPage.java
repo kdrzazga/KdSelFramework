@@ -1,8 +1,7 @@
 package org.kd.selframework.uitests.appundertest;
 
-import org.kd.selframework.core.utils.PropertiesReader;
-
 import org.kd.selframework.core.pageobjects.Page;
+import org.kd.selframework.core.utils.PropertiesReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +11,7 @@ import java.util.Map;
 
 import static org.kd.selframework.core.pageobjects.LocatorHelper.*;
 
-public class PO_InputForms extends Page {
+public class PO_SimpleFormPage extends Page {
 
     private final By userMessageTextBoxSelector = By.tagName("input");
     private final By userMsgFormGroupSelector = By.className("form-group");
@@ -41,7 +40,7 @@ public class PO_InputForms extends Page {
 
     private final int TIMEOUT = PropertiesReader.readFromConfig("timeout.default");
 
-    public PO_InputForms(WebDriver driver) {
+    public PO_SimpleFormPage(WebDriver driver) {
         super(driver, PropertiesReader.readFromConfig("app-under-test.inputforms.url"));
     }
 
@@ -49,7 +48,9 @@ public class PO_InputForms extends Page {
     public void findElements() {
         formMessage = quietlyFindElement(driver, formMessageSelector);
         userMsgFormGroup = quietlyFindElementWithinElement(driver, userMsgFormGroupSelector, formMessage, TIMEOUT);
-        userMessageTextBox = quietlyFindElementWithinElement(driver, userMessageTextBoxSelector, userMsgFormGroup, TIMEOUT);
+        if (userMsgFormGroup != null)
+            userMessageTextBox = quietlyFindElementWithinElement(driver, userMessageTextBoxSelector, userMsgFormGroup, TIMEOUT);
+
         showMessageButton = quietlyFindElementWithinElement(driver, buttonSelector, formMessage, TIMEOUT);
 
         formGetTotal = quietlyFindElement(driver, formGetTotalSelector);

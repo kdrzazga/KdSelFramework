@@ -4,15 +4,15 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.kd.selframework.core.utils.WebDriverSingleton;
-import org.kd.selframework.uitests.appundertest.PO_InputForms;
+import org.kd.selframework.uitests.appundertest.PO_SimpleFormPage;
 import org.openqa.selenium.WebDriver;
 
 import static org.junit.Assert.assertEquals;
 
-public class InputFormsStepdefs {
+public class SimpleFormStepdefs {
 
     private final WebDriver driver = WebDriverSingleton.getInstance();
-    private final PO_InputForms inputFormsPage = new PO_InputForms(driver);
+    private final PO_SimpleFormPage inputFormsPage = new PO_SimpleFormPage(driver);
 
     @When("^I enter text (.*) to 'Enter message' textbox$")
     public void enterTextToTextBox(String message) {
