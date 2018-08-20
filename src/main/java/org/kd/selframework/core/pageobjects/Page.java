@@ -3,12 +3,12 @@ package org.kd.selframework.core.pageobjects;
 import org.apache.commons.io.FileUtils;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
 import org.kd.selframework.core.utils.PropertiesReader;
+import org.kd.selframework.core.utils.TestLogger;
 import org.kd.selframework.core.utils.TestLoggerSingleton;
+import org.kd.selframework.core.utils.WindowUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.kd.selframework.core.utils.TestLogger;
-import org.kd.selframework.core.utils.WindowUtils;
 
 import java.io.File;
 import java.io.IOException;

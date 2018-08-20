@@ -5,11 +5,6 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Vector;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Vector;
-
 /*
     Simplified version of log4j
  */
