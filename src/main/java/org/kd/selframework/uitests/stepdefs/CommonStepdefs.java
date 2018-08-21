@@ -24,16 +24,11 @@ public class CommonStepdefs {
 
     private final WebDriver driver = WebDriverSingleton.getInstance();
 
-    private final PO_MainPage mainPage = new PO_MainPage(driver);
-    private final PO_SimpleFormPage simpleFormPage = new PO_SimpleFormPage(driver);
-    private final PO_CheckboxDemoPage checkboxDemoPage = new PO_CheckboxDemoPage(driver);
-    private final PO_RadioButtonDemoPage radioButtonDemoPage = new PO_RadioButtonDemoPage(driver);
-
     public CommonStepdefs() {
-        pagenamePageobjectMap.put("index", mainPage);
-        pagenamePageobjectMap.put("Input Forms", simpleFormPage);
-        pagenamePageobjectMap.put("Checkbox Demo", checkboxDemoPage);
-        pagenamePageobjectMap.put("Radio Button Demo", radioButtonDemoPage);
+        pagenamePageobjectMap.put("index", new PO_MainPage(driver));
+        pagenamePageobjectMap.put("Input Forms", new PO_SimpleFormPage(driver));
+        pagenamePageobjectMap.put("Checkbox Demo", new PO_CheckboxDemoPage(driver));
+        pagenamePageobjectMap.put("Radio Button Demo", new PO_RadioButtonDemoPage(driver));
     }
 
     @Given("^I navigate to (.*) site$")

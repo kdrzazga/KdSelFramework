@@ -22,13 +22,33 @@ public class RadioButtonDemoStepdefs {
         radioButtonDemoPage.clickButton(buttonCaption);
     }
 
+    @When("^I check (.*) radiobutton in Radio Button Demo section$")
+    public void checkRadiobuttonInRadioButtonDemoSection(String radiobuttonNameCaption) {
+        radioButtonDemoPage.clickRadioButtonDemoRadio(radiobuttonNameCaption);
+    }
+
+    @When("^I check (.*) Radiobutton in Group Radio Buttons Demo section$")
+    public void checkRadiobuttonInGroupRaioButtonsDemo(String radiobutoonCaption) {
+        radioButtonDemoPage.clickGroupRadioButtonDemoRadio(radiobutoonCaption);
+    }
+
     @Then("^I expect text (.*) below (.*) button$")
-    public void verifyTextBelowButton(String expectedText, String buttonName) {
-        String actualText = (buttonName.equals("Get Checked values"))
+    public void verifyTextBelowButton(String expectedText, String buttonCaption) {
+        String actualText = (buttonCaption.equals("Get Checked values"))
                 ? radioButtonDemoPage.getRadioButtonDemoMessage()
                 : radioButtonDemoPage.getGroupRadioButtonsDemoMessage();
 
         assertEquals(actualText.replace("\n", "").replace("\r", ""), expectedText);
+    }
+
+    @Then("^I expect message value for Sex is (.*)")
+    public void verifySex(String expectedMessageValue) {
+        assertEquals(expectedMessageValue, radioButtonDemoPage.readSex());
+    }
+
+    @Then("^I expect message value for Age Group is (.*)")
+    public void verifyAgeGroup(String expectedMessageValue) {
+        assertEquals(expectedMessageValue, radioButtonDemoPage.readAgeGroup());
     }
 
     @After
