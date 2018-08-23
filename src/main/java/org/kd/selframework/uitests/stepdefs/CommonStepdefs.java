@@ -27,6 +27,7 @@ public class CommonStepdefs {
         pagenamePageobjectMap.put("Checkbox Demo", new PO_CheckboxDemoPage(driver));
         pagenamePageobjectMap.put("Radio Button Demo", new PO_RadioButtonDemoPage(driver));
         pagenamePageobjectMap.put("Select Dropdown List", new PO_SelectDropdownListPage(driver));
+        pagenamePageobjectMap.put("Input Form Submit", new PO_InputFormSubmitPage(driver));
     }
 
     @Given("^I navigate to (.*) site$")
