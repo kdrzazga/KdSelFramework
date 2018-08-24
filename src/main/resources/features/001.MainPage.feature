@@ -1,17 +1,18 @@
 Feature: 1.Main page
 
-  Scenario: 1.1 Go to main page
+  Background: Open Main Page site
+
     When I navigate to index site
+
+  Scenario: 1.1 Go to main page
     Then I expect the page title is Selenium Easy - Best Demo website to practice Selenium Webdriver Online
 
   Scenario: 1.2 Check availability of left side menu
-    When I navigate to index site
     Then I expect Menu List is available
     And I expect Menu List is visible
     And I expect 7 items in Menu List
 
   Scenario Outline: <TC id> Check visibility of left side menu items
-    When I navigate to index site
     Then I expect item <Menu List Item> to be available
     And I expect item <Menu List Item> to be visible
     Examples:
@@ -22,7 +23,6 @@ Feature: 1.Main page
       | 1.3.4 | Progress Bars & Sliders |
 
   Scenario Outline: <TC id> Check visibility of left side menu subitems
-    When I navigate to index site
     And I unfold <Menu List Item> side menu
     Then I expect subitems <Menu List Subitem> to be visible
 

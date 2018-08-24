@@ -19,6 +19,11 @@ public class SimpleFormStepdefs {
         inputFormsPage.enterMessage(message);
     }
 
+    @When("^To 'Enter message' textbox I enter text:\n(.*)")
+    public void enterLongTextToTextBox(String message) {
+        enterTextToTextBox(message);
+    }
+
     @When("^I click (.*) button$")
     public void clickButton(String buttonCaption) {
         inputFormsPage.pressButton(buttonCaption);

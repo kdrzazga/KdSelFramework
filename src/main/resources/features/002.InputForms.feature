@@ -1,8 +1,11 @@
 Feature: 2. InputForms
 
-  Scenario Outline: 2.1 Entering messages to Single Input Field
+  Background: Open Input Form site
 
     Given I navigate to Input Forms site
+
+  Scenario Outline: 2.1 Entering messages to Single Input Field
+
     When I enter text <entered text> to 'Enter message' textbox
     And I click Show Message button
     Then I expect <entered text> to be displayed as 'Your message'
@@ -16,7 +19,6 @@ Feature: 2. InputForms
 
   Scenario Outline: 2.2 Entering values to Two Input Fields
 
-    Given I navigate to Input Forms site
     When I enter a = <valueA> and b = <valueB> to textboxes
     And I click Get Total button
     Then I expect <total> to be displayed as 'Total'

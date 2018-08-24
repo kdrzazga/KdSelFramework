@@ -1,7 +1,9 @@
 Feature: 4. Radio Button Demo
 
-  Scenario Outline: 4.1 Clicking Buttons without choosing any radio
+  Background: Open Checkbox Demo site
     Given I navigate to Radio Button Demo site
+
+  Scenario Outline: 4.1 Clicking Buttons without choosing any radio
     When I click <Button> button on Radio Button Demo site
     Then I expect text <Message> below <Button> button
 
@@ -12,7 +14,6 @@ Feature: 4. Radio Button Demo
       | 4.1.2 | Get values         | Sex :Age group:             |
 
   Scenario Outline: 4.2 Checking Radiobuttons in Radio Button Demo section
-    Given I navigate to Radio Button Demo site
     When I check <Radiobutton> radiobutton in Radio Button Demo section
     And I click Get Checked values button on Radio Button Demo site
     Then I expect text <Message> below Get Checked values button
@@ -24,7 +25,6 @@ Feature: 4. Radio Button Demo
       | 4.2.2 | Female      | Radio button 'Female' is checked |
 
   Scenario Outline: 4.3 Checking Radiobuttons in Group Radio Buttons Demo section
-    Given I navigate to Radio Button Demo site
     When I check <Sex> Radiobutton in Group Radio Buttons Demo section
     And I check <Age Group Input> Radiobutton in Group Radio Buttons Demo section
     And I click Get values button on Radio Button Demo site

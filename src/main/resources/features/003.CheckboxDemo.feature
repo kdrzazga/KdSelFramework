@@ -1,12 +1,13 @@
 Feature: 3. Checkbox Demo
 
-  Scenario: 3.1 Clicking Single Checkbox
+  Background: Open Checkbox Demo site
     Given I navigate to Checkbox Demo site
+
+  Scenario: 3.1 Clicking Single Checkbox
     When I click checkbox Click on this check box
     Then I expect text to be displayed below
 
   Scenario Outline: 3.2 Selecting different sets of options to affect button caption
-    Given I navigate to Checkbox Demo site
     When I click checkboxes <Checkboxes>
     Then I expect button below has caption <Button Caption>
 
