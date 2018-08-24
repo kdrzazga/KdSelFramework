@@ -5,9 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.core.utils.WebDriverSingleton;
-import org.kd.selframework.uitests.appundertest.PO_CheckboxDemoPage;
-import org.kd.selframework.uitests.appundertest.PO_MainPage;
-import org.kd.selframework.uitests.appundertest.PO_SimpleFormPage;
+import org.kd.selframework.uitests.appundertest.*;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Hashtable;
@@ -23,14 +21,12 @@ public class CommonStepdefs {
 
     private final WebDriver driver = WebDriverSingleton.getInstance();
 
-    private final PO_MainPage mainPage = new PO_MainPage(driver);
-    private final PO_SimpleFormPage simpleFormPage = new PO_SimpleFormPage(driver);
-    private final PO_CheckboxDemoPage checkboxDemoPage = new PO_CheckboxDemoPage(driver);
-
     public CommonStepdefs() {
-        pagenamePageobjectMap.put("index", mainPage);
-        pagenamePageobjectMap.put("Input Forms", simpleFormPage);
-        pagenamePageobjectMap.put("Checkbox Demo", checkboxDemoPage);
+        pagenamePageobjectMap.put("index", new PO_MainPage(driver));
+        pagenamePageobjectMap.put("Input Forms", new PO_SimpleFormPage(driver));
+        pagenamePageobjectMap.put("Checkbox Demo", new PO_CheckboxDemoPage(driver));
+        pagenamePageobjectMap.put("Radio Button Demo", new PO_RadioButtonDemoPage(driver));
+        pagenamePageobjectMap.put("Select Dropdown List", new PO_SelectDropdownListPage(driver));
     }
 
     @Given("^I navigate to (.*) site$")

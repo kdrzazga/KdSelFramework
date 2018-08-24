@@ -3,8 +3,6 @@ package org.kd.selframework.uitests.stepdefs;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.kd.selframework.core.utils.TestLogger;
-import org.kd.selframework.core.utils.TestLoggerSingleton;
 import org.kd.selframework.core.utils.WebDriverSingleton;
 import org.kd.selframework.uitests.appundertest.PO_CheckboxDemoPage;
 import org.openqa.selenium.WebDriver;
@@ -18,8 +16,6 @@ public class CheckboxDemoStepdefs {
 
     private final WebDriver driver = WebDriverSingleton.getInstance();
     private final PO_CheckboxDemoPage checkboxDemoPage = new PO_CheckboxDemoPage(driver);
-    private final TestLogger logger = TestLoggerSingleton.getInstance();
-
 
     @When("^I click checkbox (.*)$")
     public void check(String checkboxCaption) {
