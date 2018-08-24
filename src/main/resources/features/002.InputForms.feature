@@ -4,7 +4,7 @@ Feature: 2. InputForms
 
     Given I navigate to Input Forms site
 
-  Scenario Outline: 2.1 Entering messages to Single Input Field
+  Scenario Outline: <TC id> Entering messages to Single Input Field
 
     When I enter text <entered text> to 'Enter message' textbox
     And I click Show Message button

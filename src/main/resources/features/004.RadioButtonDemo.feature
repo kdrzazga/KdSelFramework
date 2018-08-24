@@ -3,7 +3,7 @@ Feature: 4. Radio Button Demo
   Background: Open Checkbox Demo site
     Given I navigate to Radio Button Demo site
 
-  Scenario Outline: 4.1 Clicking Buttons without choosing any radio
+  Scenario Outline: <TC id> Clicking Buttons without choosing any radio
     When I click <Button> button on Radio Button Demo site
     Then I expect text <Message> below <Button> button
 
@@ -24,7 +24,7 @@ Feature: 4. Radio Button Demo
       | 4.2.1 | Male        | Radio button 'Male' is checked   |
       | 4.2.2 | Female      | Radio button 'Female' is checked |
 
-  Scenario Outline: 4.3 Checking Radiobuttons in Group Radio Buttons Demo section
+  Scenario Outline: <TC id> Checking Radiobuttons in Group Radio Buttons Demo section
     When I check <Sex> Radiobutton in Group Radio Buttons Demo section
     And I check <Age Group Input> Radiobutton in Group Radio Buttons Demo section
     And I click Get values button on Radio Button Demo site

@@ -5,10 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.core.utils.WebDriverSingleton;
-import org.kd.selframework.uitests.appundertest.PO_CheckboxDemoPage;
-import org.kd.selframework.uitests.appundertest.PO_MainPage;
-import org.kd.selframework.uitests.appundertest.PO_SelectDropdownListPage;
-import org.kd.selframework.uitests.appundertest.PO_SimpleFormPage;
+import org.kd.selframework.uitests.appundertest.*;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Hashtable;
