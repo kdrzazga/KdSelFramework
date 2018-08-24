@@ -17,7 +17,6 @@ public class CheckboxDemoStepdefs {
     private final WebDriver driver = WebDriverSingleton.getInstance();
     private final PO_CheckboxDemoPage checkboxDemoPage = new PO_CheckboxDemoPage(driver);
 
-
     @When("^I click checkbox (.*)$")
     public void check(String checkboxCaption) {
         checkboxDemoPage.clickCheckbox(checkboxCaption);

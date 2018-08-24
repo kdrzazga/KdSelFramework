@@ -3,8 +3,6 @@ package org.kd.selframework.uitests.stepdefs;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.kd.selframework.core.utils.TestLogger;
-import org.kd.selframework.core.utils.TestLoggerSingleton;
 import org.kd.selframework.core.utils.WebDriverSingleton;
 import org.kd.selframework.uitests.appundertest.PO_RadioButtonDemoPage;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +13,6 @@ public class RadioButtonDemoStepdefs {
 
     private final WebDriver driver = WebDriverSingleton.getInstance();
     private final PO_RadioButtonDemoPage radioButtonDemoPage = new PO_RadioButtonDemoPage(driver);
-    private final TestLogger logger = TestLoggerSingleton.getInstance();
 
     @When("^I click (.*) button on Radio Button Demo site$")
     public void clickButton(String buttonCaption) {

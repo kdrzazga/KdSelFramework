@@ -7,7 +7,7 @@ import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.core.utils.WebDriverSingleton;
 import org.kd.selframework.uitests.appundertest.PO_CheckboxDemoPage;
 import org.kd.selframework.uitests.appundertest.PO_MainPage;
-import org.kd.selframework.uitests.appundertest.PO_RadioButtonDemoPage;
+import org.kd.selframework.uitests.appundertest.PO_SelectDropdownListPage;
 import org.kd.selframework.uitests.appundertest.PO_SimpleFormPage;
 import org.openqa.selenium.WebDriver;
 
@@ -29,6 +29,7 @@ public class CommonStepdefs {
         pagenamePageobjectMap.put("Input Forms", new PO_SimpleFormPage(driver));
         pagenamePageobjectMap.put("Checkbox Demo", new PO_CheckboxDemoPage(driver));
         pagenamePageobjectMap.put("Radio Button Demo", new PO_RadioButtonDemoPage(driver));
+        pagenamePageobjectMap.put("Select Dropdown List", new PO_SelectDropdownListPage(driver));
     }
 
     @Given("^I navigate to (.*) site$")
