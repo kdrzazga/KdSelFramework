@@ -11,9 +11,8 @@ import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.core.utils.TestLogger;
 import org.kd.selframework.core.utils.TestLoggerSingleton;
 import org.kd.selframework.core.utils.WebDriverSingleton;
+import org.kd.selframework.core.utils.WindowUtils;
 import org.kd.selframework.uitests.appundertest.*;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -26,6 +25,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
+
 
 public class StepDefinitions {
 
@@ -48,6 +48,11 @@ public class StepDefinitions {
         pagenamePageobjectMap.put("Radio Button Demo", new PO_RadioButtonDemoPage(driver));
         pagenamePageobjectMap.put("Select Dropdown List", new PO_SelectDropdownListPage(driver));
         pagenamePageobjectMap.put("Input Form Submit", new PO_InputFormSubmitPage(driver));
+    }
+
+    @Before
+    public void maximizeSite() {
+        WindowUtils.maximizeWindow(driver);
     }
 
     @Given("^I navigate to (.*) site$")
@@ -93,14 +98,6 @@ public class StepDefinitions {
     public void verifyCheckedCheckboxes(List<String> checkedCheckboxes) {
         checkedCheckboxes.forEach(chkboxCaption ->
                 assertTrue("Fail for " + chkboxCaption, checkboxDemoPage.isCheckboxCheck(chkboxCaption)));
-    }
-
-    @Before
-    public void maximizeSite() {
-        driver.manage().window().setPosition(new Point(0, 0));
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension dim = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
-        driver.manage().window().setSize(dim);
     }
 
     @When("^I enter a person (.*), (.*)$")
