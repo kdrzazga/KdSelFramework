@@ -38,14 +38,15 @@ public class PO_InputFormSubmitPage extends Page {
     private final By hostingRadioYesSelector = By.xpath("//input[contains(@name, 'hosting') and contains(@value, 'yes')and contains(@type, 'radio')]");
     private final By hostingRadioNoSelector = By.xpath("//input[contains(@name, 'hosting') and contains(@value, 'no')and contains(@type, 'radio')]");
     private final By textareaCommentSelector = By.tagName("textarea");
-    private final By sendButtonSelector = By.xpath("//button[contains(@type, 'submit')]");
+    private final By sendButtonSelector = By.className("btn-default");
     private final By feedbackBlockSelector = By.className("help-block");
 
     public PO_InputFormSubmitPage(WebDriver driver) {
         super(driver, PropertiesReader.readFromConfig("app-under-test.inputfromsubmit.url"));
     }
 
-    public static List<WebElement> getFeedbackBlocks() {
+    public List<WebElement> getFeedbackBlocks() {
+        findFeedbackBlocks();
         return feedbackBlocks;
     }
 
