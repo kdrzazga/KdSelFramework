@@ -36,7 +36,7 @@ public abstract class Page implements WebDriveable {
         ExpectedCondition<Boolean> expectation = driver -> ((JavascriptExecutor) driver).executeScript(jsScript)
                 .equals("complete");
 
-        WebDriverWait wait = new WebDriverWait(this.driver, PropertiesReader.readFromConfig("timeout.default"));
+        WebDriverWait wait = new WebDriverWait(this.driver, PropertiesReader.readTimeout());
 
         try {
             wait.until(expectation);

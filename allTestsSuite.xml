@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestAll">
+
+    <test verbose="2" name="Store">
+        <classes>
+            <class name="org.kd.selframework.uitests.stepdefs.BuyProductsTests">
+                <methods>
+                    <include name="testAddingItemsToCart"/>
+                    <include name="testCartContent"/>
+                    <include name="testOrderUpdateInCheckout"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

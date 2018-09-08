@@ -6,27 +6,44 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 public class PropertiesReader {
 
+    private static final PropertiesConfiguration config = new PropertiesConfiguration();
+    private static final String propertiesFilePath = "src/main/resources/application.properties";
     private static final TestLogger logger = TestLoggerSingleton.getInstance();
 
-    public static <T> T readFromConfig(String keyName) {
-        PropertiesConfiguration config = new PropertiesConfiguration();
-        String propertiesFilePath = "src/main/resources/application.properties";
+    static {
         try {
             config.load(propertiesFilePath);
-            try {
-                Integer value = config.getInt(keyName);
-                return (T) value;
-            } catch (ConversionException notInteger) {
-                try {
-                    Double value = config.getDouble(keyName);
-                    return (T) value;
-                } catch (ConversionException notDouble) {
-                    return (T) config.getString(keyName);
-                }
-            }
         } catch (ConfigurationException e) {
             logger.warn("Could not parse " + propertiesFilePath);
-            return (T) "";
         }
     }
+
+    public static String readAppUrl() {
+        return readString("app-under-test.url");
+    }
+
+    public static String readBrowser() {
+        return readString("browser");
+    }
+
+    public static String readChromeDriverPath() {
+        return readString("driver.chrome.path");
+    }
+
+    public static String readFirefoxDriverPath() {
+        return readString("driver.firefox.path");
+    }
+
+    public static int readTimeout() {
+        return readInteger("timeout.default");
+    }
+
+    public static String readString(String keyName) {
+        return config.getString(keyName);
+    }
+
+    public static int readInteger(String keyName) {
+        return config.getInt(keyName);
+    }
+
 }

@@ -7,3 +7,4 @@ Write cucumber scenarios in resources/features and code scenario steps in uitest
 
 For best examples, please checkout and execute tests in the following branches:
 selenium-easy-master
+demoqa-master

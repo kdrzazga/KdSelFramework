@@ -19,7 +19,7 @@ public final class LocatorHelper {
     private static final TestLogger logger = TestLoggerSingleton.getInstance();
 
     static {
-        TIMEOUT = PropertiesReader.readFromConfig("timeout.default");
+        TIMEOUT = PropertiesReader.readTimeout();
         if (TIMEOUT / 5 < 1) {
             POLLING_INTERVAL = 1;
         } else {

@@ -12,12 +12,12 @@ public class WebDriverFactory {
     }
 
     static {
-        System.setProperty("webdriver.chrome.driver", PropertiesReader.readFromConfig("driver.chrome.path"));
-        System.setProperty("webdriver.gecko.driver", PropertiesReader.readFromConfig("driver.firefox.path"));
+        System.setProperty("webdriver.chrome.driver", PropertiesReader.readChromeDriverPath());
+        System.setProperty("webdriver.gecko.driver", PropertiesReader.readFirefoxDriverPath());
     }
 
     public static WebDriver createDriverDefinedInConfig() {
-        String browserName = PropertiesReader.readFromConfig("browser");
+        String browserName = PropertiesReader.readBrowser();
 
         switch (browserName) {
             case "Headless":
