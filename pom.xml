@@ -6,14 +6,18 @@
 
     <groupId>org.kd</groupId>
     <artifactId>seleniumeasy</artifactId>
-    <version>0.9-SNAPSHOT</version>
+    <version>0.9.1-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>10</maven.compiler.source>
-        <maven.compiler.target>10</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <junit.version>4.12</junit.version>
         <testng.version>6.8.7</testng.version>
-        <selenium.version>2.39.0</selenium.version>
+        <selenium.version>3.13.0</selenium.version>
+        <htmlunit.version>2.50.0</htmlunit.version>
+        <cucumber.version>1.2.5</cucumber.version>
+        <common.conf.version>1.6</common.conf.version>
+        <mojo.maven.version>1.2.1</mojo.maven.version>
     </properties>
 
     <build>
@@ -21,7 +25,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <version>${mojo.maven.version}</version>
                 <executions>
                     <execution>
                         <phase>test</phase>
@@ -54,62 +58,60 @@
                     <dependency>
                         <groupId>info.cukes</groupId>
                         <artifactId>cucumber-core</artifactId>
-                        <version>1.2.5</version>
+                        <version>${cucumber.version}</version>
                     </dependency>
-
                 </dependencies>
             </plugin>
         </plugins>
     </build>
 
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.13.0</version>
+            <version>${selenium.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-htmlunit-driver</artifactId>
-            <version>2.50.0</version>
+            <version>${htmlunit.version}</version>
         </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>1.2.5</version>
+            <version>${cucumber.version}</version>
         </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>1.2.5</version>
+            <version>${cucumber.version}</version>
         </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-core</artifactId>
-            <version>1.2.5</version>
+            <version>${cucumber.version}</version>
         </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-picocontainer</artifactId>
-            <version>1.2.5</version>
+            <version>${cucumber.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
-            <version>1.6</version>
+            <version>${common.conf.version}</version>
         </dependency>
 
     </dependencies>

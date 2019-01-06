@@ -13,6 +13,7 @@ import org.kd.selframework.core.utils.TestLoggerSingleton;
 import org.kd.selframework.core.utils.WebDriverSingleton;
 import org.kd.selframework.core.utils.WindowUtils;
 import org.kd.selframework.uitests.appundertest.*;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -21,8 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
@@ -40,6 +40,7 @@ public class StepDefinitions {
     private final PO_RadioButtonDemoPage radioButtonDemoPage = new PO_RadioButtonDemoPage(driver);
     private final PO_SelectDropdownListPage selectDropdownListPage = new PO_SelectDropdownListPage(driver);
     private final PO_SimpleFormPage inputFormsPage = new PO_SimpleFormPage(driver);
+    private final PO_AjaxFormSubmitPage ajaxFormSubmitPage = new PO_AjaxFormSubmitPage(driver);
 
     public StepDefinitions() {
         pagenamePageobjectMap.put("index", new PO_MainPage(driver));
@@ -48,6 +49,7 @@ public class StepDefinitions {
         pagenamePageobjectMap.put("Radio Button Demo", new PO_RadioButtonDemoPage(driver));
         pagenamePageobjectMap.put("Select Dropdown List", new PO_SelectDropdownListPage(driver));
         pagenamePageobjectMap.put("Input Form Submit", new PO_InputFormSubmitPage(driver));
+        pagenamePageobjectMap.put("Ajax Form Submit", ajaxFormSubmitPage);
     }
 
     @Before
@@ -316,6 +318,55 @@ public class StepDefinitions {
     @Then("^I expect (.*) to be displayed as 'Total'$")
     public void checkTotalResult(String result) {
         assertEquals(result, inputFormsPage.readTotalResult());
+    }
+
+    @When("^I enter a name (.*)$")
+    public void enterName(String name) {
+        ajaxFormSubmitPage.enterName(name);
+    }
+
+    @When("^I enter a comment (.*)$")
+    public void enterComment(String comment) {
+        ajaxFormSubmitPage.enterComment(comment);
+    }
+
+    @When("^I click Submit button for Ajax Form Submit$")
+    public void submitAjaxData() {
+        ajaxFormSubmitPage.clickSubmit();
+    }
+
+    @Then("^I expect Submit button to disappear$")
+    public void validateSubmitButtonDisappearance() {
+        //terribly ugly code, but I didn't google any better solution :(
+        try {
+            ajaxFormSubmitPage.getSubmitButtonVisibility(); // should throw StaleElementReferenceException
+            Assert.fail();
+        } catch (StaleElementReferenceException staleElementException) {
+            //this Exception is expected
+        }
+    }
+
+    @Then("^Later I expect (.*) message to appear underneath for Ajax Form Submit$")
+    public void validateFinalMessageUnderCommentTextbox(String expectedMsg) {
+        ajaxFormSubmitPage.waitForMessageChange(expectedMsg);
+        assertEquals(expectedMsg, ajaxFormSubmitPage.readMessageUnderneath());
+    }
+
+    @Then("^I expect Submit button to be visible$")
+    public void validateSubmitButtonVisibility() {
+        assertTrue(ajaxFormSubmitPage.getSubmitButtonVisibility());
+    }
+
+    @Then("^I expect Name textbox turn red$")
+    public void validateRedColorOfNameTextbox() {
+        assertThat(ajaxFormSubmitPage.getTitleTextboxStyle(), containsString("rgb(255, 0, 0)"));
+    }
+
+    @Then("^I expect (.*) to appear underneath for Ajax Form Submit$")
+    public void validateMessageUnderCommentTextbox(String expectedMsg) {
+        ajaxFormSubmitPage.findLoaderSpinner();
+        assertNotNull("Load Icon Spinner wasn't found under TextBox ", PO_AjaxFormSubmitPage.getLoaderIcon());
+        assertEquals(expectedMsg, ajaxFormSubmitPage.readMessageUnderneath());
     }
 
     @After
