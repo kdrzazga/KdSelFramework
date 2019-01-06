@@ -7,7 +7,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
-import org.kd.selframework.uitests.appundertest.PO_BootstrapDatePicker;
 import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.core.utils.TestLogger;
 import org.kd.selframework.core.utils.TestLoggerSingleton;

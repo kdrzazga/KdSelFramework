@@ -6,7 +6,7 @@
 
     <groupId>org.kd</groupId>
     <artifactId>seleniumeasy</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>0.9.2-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
