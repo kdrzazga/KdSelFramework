@@ -7,6 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.kd.selframework.core.exceptions.SiteNotOpenedException;
+import org.kd.selframework.uitests.appundertest.PO_BootstrapDatePicker;
 import org.kd.selframework.core.pageobjects.Page;
 import org.kd.selframework.core.utils.TestLogger;
 import org.kd.selframework.core.utils.TestLoggerSingleton;
@@ -17,10 +18,8 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -41,6 +40,8 @@ public class StepDefinitions {
     private final PO_SelectDropdownListPage selectDropdownListPage = new PO_SelectDropdownListPage(driver);
     private final PO_SimpleFormPage inputFormsPage = new PO_SimpleFormPage(driver);
     private final PO_AjaxFormSubmitPage ajaxFormSubmitPage = new PO_AjaxFormSubmitPage(driver);
+    private final PO_BootstrapDatePicker bootstrapDatePicker = new PO_BootstrapDatePicker(driver);
+
 
     public StepDefinitions() {
         pagenamePageobjectMap.put("index", new PO_MainPage(driver));
@@ -50,6 +51,7 @@ public class StepDefinitions {
         pagenamePageobjectMap.put("Select Dropdown List", new PO_SelectDropdownListPage(driver));
         pagenamePageobjectMap.put("Input Form Submit", new PO_InputFormSubmitPage(driver));
         pagenamePageobjectMap.put("Ajax Form Submit", ajaxFormSubmitPage);
+        pagenamePageobjectMap.put("Bootstrap Date Picker", bootstrapDatePicker);
     }
 
     @Before
@@ -367,6 +369,19 @@ public class StepDefinitions {
         ajaxFormSubmitPage.findLoaderSpinner();
         assertNotNull("Load Icon Spinner wasn't found under TextBox ", PO_AjaxFormSubmitPage.getLoaderIcon());
         assertEquals(expectedMsg, ajaxFormSubmitPage.readMessageUnderneath());
+    }
+
+    @When("^I select today's date in Calendar$")
+    public void selectTodaysDateInCalendar(){
+        bootstrapDatePicker.clickTodayButton();
+    }
+
+    @Then("^I expect today's date to be visible in Date Picker$")
+    public void validateSelectedDate(){
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String today = df.format(new Date());
+
+        assertEquals(today, bootstrapDatePicker.getSelectedDate());
     }
 
     @After

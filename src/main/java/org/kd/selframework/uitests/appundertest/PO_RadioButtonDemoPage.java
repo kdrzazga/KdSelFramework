@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import static org.kd.selframework.core.pageobjects.LocatorHelper.quietlyFindElement;
 
-public class PO_RadioButtonDemoPage extends Page {
+public final class PO_RadioButtonDemoPage extends Page {
 
     private final static Map<String, WebElement> textButtonMap = new Hashtable<>(2);
     private final static Map<String, WebElement> radioButtonDemoTextRadioMap = new Hashtable<>(2);

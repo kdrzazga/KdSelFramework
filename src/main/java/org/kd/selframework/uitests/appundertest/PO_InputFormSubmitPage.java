@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.kd.selframework.core.pageobjects.LocatorHelper.*;
 
-public class PO_InputFormSubmitPage extends Page {
+public final class PO_InputFormSubmitPage extends Page {
 
     private static WebElement firstNameTextbox;
     private static WebElement lastNameTextbox;

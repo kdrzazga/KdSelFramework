@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static org.kd.selframework.core.pageobjects.LocatorHelper.*;
 
-public class PO_SimpleFormPage extends Page {
+public final class PO_SimpleFormPage extends Page {
 
     private final By userMessageTextBoxSelector = By.tagName("input");
     private final By userMsgFormGroupSelector = By.className("form-group");

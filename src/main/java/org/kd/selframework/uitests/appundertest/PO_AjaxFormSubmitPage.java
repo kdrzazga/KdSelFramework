@@ -15,13 +15,14 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.kd.selframework.core.pageobjects.LocatorHelper.quietlyFindElement;
 import static org.kd.selframework.core.pageobjects.LocatorHelper.sendKeys;
 
-public class PO_AjaxFormSubmitPage extends Page {
+public final class PO_AjaxFormSubmitPage extends Page {
 
     private static WebElement titleTextbox;
     private static WebElement descriptionTextbox;
     private static WebElement submitButton;
     private static WebElement messageUnderneath;
     private static WebElement loaderIcon;
+
     private final By titleTextboxSelector = By.id("title");
     private final By descriptionTextboxSelector = By.id("description");
     private final By submitButtonSelector = By.id("btn-submit");

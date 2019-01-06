@@ -14,7 +14,7 @@ import java.util.Optional;
 import static org.kd.selframework.core.pageobjects.LocatorHelper.quietlyFindElement;
 import static org.kd.selframework.core.pageobjects.LocatorHelper.quietlyFindElements;
 
-public class PO_CheckboxDemoPage extends Page {
+public final class PO_CheckboxDemoPage extends Page {
 
     private final By singleCheckboxSelector = By.id("isAgeSelected");
     private final By singleCheckboxSubtextSelector = By.id("txtAge");

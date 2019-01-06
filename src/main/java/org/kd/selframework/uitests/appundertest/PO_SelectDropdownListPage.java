@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import static org.kd.selframework.core.pageobjects.LocatorHelper.quietlyFindElement;
 
-public class PO_SelectDropdownListPage extends Page {
+public final class PO_SelectDropdownListPage extends Page {
 
     private static QuietSelect weekdayDropdownList;
     private static WebElement selectedWeekdayMessage;
